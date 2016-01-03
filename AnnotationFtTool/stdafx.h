@@ -35,7 +35,46 @@
 
 
 
+#include <stdio.h>
+#include <tchar.h>
+#include <string>
+#include <iostream>
+#include <assert.h>
+#include <math.h>
 
+
+
+
+//OPENGL HEADER FILE
+#include <GL/glew.h>
+#include <GL/freeglut.h>
+
+//BOOST
+#include <boost/date_time.hpp>
+using namespace boost::posix_time;
+#include <boost/lexical_cast.hpp>
+#include <boost/filesystem.hpp>
+using namespace boost::filesystem;
+
+
+//OPENCV HEADER
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+
+
+
+//GUTL HEADER
+#include "../GUtlLib/Error.h"
+#include "../GUtlLib/Type.h"
+#include "../GUtlLib/Utility.h"
+#include "../GUtlLib/Monitor.h"
+#include "../GUtlLib/Thread.h"
+#include "../GUtlLib/Vector.h"
+
+
+//LOCAL HEADER
+#include "ui\OpenGlWnd.h"
+#include"ui\Canvas.h"
 
 
 

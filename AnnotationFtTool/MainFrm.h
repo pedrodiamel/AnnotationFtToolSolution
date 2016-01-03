@@ -4,7 +4,7 @@
 
 #pragma once
 #include "FileView.h"
-#include "ClassView.h"
+//#include "ClassView.h"
 #include "PropertiesWnd.h"
 
 class CMainFrame : public CFrameWndEx
@@ -39,7 +39,7 @@ protected:  // control bar embedded members
 	CMFCStatusBar     m_wndStatusBar;
 	CMFCToolBarImages m_UserImages;
 	CFileView         m_wndFileView;
-	CClassView        m_wndClassView;
+	//CClassView        m_wndClassView;
 	CPropertiesWnd    m_wndProperties;
 
 // Generated message map functions

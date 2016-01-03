@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AnnotationFtTool", "AnnotationFtTool\AnnotationFtTool.vcxproj", "{B75BD98C-81B6-470A-8101-EAF9A56F0000}"
+	ProjectSection(ProjectDependencies) = postProject
+		{40FD6524-F115-4DE4-909F-43ABEF272F34} = {40FD6524-F115-4DE4-909F-43ABEF272F34}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GUtlLib", "GUtlLib\GUtlLib.vcxproj", "{40FD6524-F115-4DE4-909F-43ABEF272F34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,12 +20,20 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B75BD98C-81B6-470A-8101-EAF9A56F0000}.Debug|x64.ActiveCfg = Debug|x64
 		{B75BD98C-81B6-470A-8101-EAF9A56F0000}.Debug|x64.Build.0 = Debug|x64
-		{B75BD98C-81B6-470A-8101-EAF9A56F0000}.Debug|x86.ActiveCfg = Debug|Win32
-		{B75BD98C-81B6-470A-8101-EAF9A56F0000}.Debug|x86.Build.0 = Debug|Win32
+		{B75BD98C-81B6-470A-8101-EAF9A56F0000}.Debug|x86.ActiveCfg = Debug|x64
+		{B75BD98C-81B6-470A-8101-EAF9A56F0000}.Debug|x86.Build.0 = Debug|x64
 		{B75BD98C-81B6-470A-8101-EAF9A56F0000}.Release|x64.ActiveCfg = Release|x64
 		{B75BD98C-81B6-470A-8101-EAF9A56F0000}.Release|x64.Build.0 = Release|x64
 		{B75BD98C-81B6-470A-8101-EAF9A56F0000}.Release|x86.ActiveCfg = Release|Win32
 		{B75BD98C-81B6-470A-8101-EAF9A56F0000}.Release|x86.Build.0 = Release|Win32
+		{40FD6524-F115-4DE4-909F-43ABEF272F34}.Debug|x64.ActiveCfg = Debug|x64
+		{40FD6524-F115-4DE4-909F-43ABEF272F34}.Debug|x64.Build.0 = Debug|x64
+		{40FD6524-F115-4DE4-909F-43ABEF272F34}.Debug|x86.ActiveCfg = Debug|x64
+		{40FD6524-F115-4DE4-909F-43ABEF272F34}.Debug|x86.Build.0 = Debug|x64
+		{40FD6524-F115-4DE4-909F-43ABEF272F34}.Release|x64.ActiveCfg = Release|x64
+		{40FD6524-F115-4DE4-909F-43ABEF272F34}.Release|x64.Build.0 = Release|x64
+		{40FD6524-F115-4DE4-909F-43ABEF272F34}.Release|x86.ActiveCfg = Release|Win32
+		{40FD6524-F115-4DE4-909F-43ABEF272F34}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Command">
+      <UniqueIdentifier>{2969d0c5-adb6-4b00-8e5a-47aafb82a592}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{7bee259f-df6f-4487-b8ee-4b274151f369}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{2496b933-b3bd-46ee-9549-5268bf1aa481}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Ui">
+      <UniqueIdentifier>{cb849dc0-52b5-4460-8ed3-7361580aebab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -51,6 +63,39 @@
     <ClInclude Include="PropertiesWnd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ui\OpenGlWnd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command\Command.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="command\LoadMuctCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="manager\AppManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\WireMask.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="model\DataSet.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="model\DataMuctDb.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\GWireMask.h">
+      <Filter>Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\GObject.h">
+      <Filter>Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\GImage.h">
+      <Filter>Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\Canvas.h">
+      <Filter>Ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnnotationFtTool.cpp">
@@ -80,12 +125,48 @@
     <ClCompile Include="PropertiesWnd.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ui\OpenGlWnd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command\Command.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="command\LoadMuctCommand.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="manager\AppManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\WireMask.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="model\DataSet.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="model\DataMuctDb.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\GWireMask.cpp">
+      <Filter>Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\GObject.cpp">
+      <Filter>Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\GImage.cpp">
+      <Filter>Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\Canvas.cpp">
+      <Filter>Ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="AnnotationFtTool.reg" />
     <None Include="res\AnnotationFtTool.rc2">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="$(OPENTOOL_DIR)\bin\$(Platform)\$(Configuration)\freeglut.dll" />
+    <None Include="$(OPENTOOL_DIR)\bin\$(Platform)\$(Configuration)\glew32.dll" />
+    <None Include="$(OPENCV_DIR)\bin\opencv_world310$(DebugSuffix).dll" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AnnotationFtTool.rc">

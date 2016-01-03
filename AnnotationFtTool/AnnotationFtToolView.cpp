@@ -24,11 +24,13 @@ IMPLEMENT_DYNCREATE(CAnnotationFtToolView, CView)
 BEGIN_MESSAGE_MAP(CAnnotationFtToolView, CView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 // CAnnotationFtToolView construction/destruction
 
 CAnnotationFtToolView::CAnnotationFtToolView()
+	:m_bCreateCanva(FALSE)
 {
 	// TODO: add construction code here
 
@@ -42,11 +44,30 @@ BOOL CAnnotationFtToolView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
+	cs.dwExStyle &= ~WS_EX_CLIENTEDGE;
+	cs.lpszClass = AfxRegisterWndClass(0);
 
 	return CView::PreCreateWindow(cs);
 }
 
 // CAnnotationFtToolView drawing
+
+void CAnnotationFtToolView::AdjustLayout()
+{
+
+	if (!GetSafeHwnd() ||
+		!m_bCreateCanva)
+	{
+		return;
+	}
+
+	CRect rc;
+	GetClientRect(rc);
+	m_wndCanvas.SetWindowPos(NULL, rc.left, rc.top, rc.Width(), rc.Height(), SWP_NOACTIVATE | SWP_NOZORDER);
+
+
+
+}
 
 void CAnnotationFtToolView::OnDraw(CDC* /*pDC*/)
 {
@@ -94,3 +115,34 @@ CAnnotationFtToolDoc* CAnnotationFtToolView::GetDocument() const // non-debug ve
 
 
 // CAnnotationFtToolView message handlers
+
+
+void CAnnotationFtToolView::OnInitialUpdate()
+{
+	CView::OnInitialUpdate();
+
+	// TODO: Add your specialized code here and/or call the base class
+	CDocument* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+
+	//Create view
+	if (!(m_bCreateCanva = m_wndCanvas.Create(CRect(), 32, this)))
+	{
+		TRACE0("No se pudo crear la ventana de vista\n");
+		return;
+	}
+
+
+
+
+
+}
+
+
+void CAnnotationFtToolView::OnSize(UINT nType, int cx, int cy)
+{
+	CView::OnSize(nType, cx, cy);
+
+	// TODO: Add your message handler code here
+	AdjustLayout();
+}

@@ -68,6 +68,9 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\common\PropertySheetGraphic.props" />
+    <Import Project="..\common\PropertySheetOpenCV.props" />
+    <Import Project="..\common\PropertySheetBoost.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -189,12 +192,23 @@
     <ClInclude Include="AnnotationFtToolDoc.h" />
     <ClInclude Include="AnnotationFtToolView.h" />
     <ClInclude Include="ClassView.h" />
+    <ClInclude Include="command\Command.h" />
+    <ClInclude Include="command\LoadMuctCommand.h" />
     <ClInclude Include="FileView.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="manager\AppManager.h" />
+    <ClInclude Include="model\DataMuctDb.h" />
+    <ClInclude Include="model\DataSet.h" />
     <ClInclude Include="PropertiesWnd.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="ui\GImage.h" />
+    <ClInclude Include="ui\GObject.h" />
+    <ClInclude Include="ui\GWireMask.h" />
+    <ClInclude Include="ui\Canvas.h" />
+    <ClInclude Include="ui\OpenGlWnd.h" />
+    <ClInclude Include="ui\WireMask.h" />
     <ClInclude Include="ViewTree.h" />
   </ItemGroup>
   <ItemGroup>
@@ -202,8 +216,13 @@
     <ClCompile Include="AnnotationFtToolDoc.cpp" />
     <ClCompile Include="AnnotationFtToolView.cpp" />
     <ClCompile Include="ClassView.cpp" />
+    <ClCompile Include="command\Command.cpp" />
+    <ClCompile Include="command\LoadMuctCommand.cpp" />
     <ClCompile Include="FileView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="manager\AppManager.cpp" />
+    <ClCompile Include="model\DataMuctDb.cpp" />
+    <ClCompile Include="model\DataSet.cpp" />
     <ClCompile Include="PropertiesWnd.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -211,6 +230,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="ui\GImage.cpp" />
+    <ClCompile Include="ui\GObject.cpp" />
+    <ClCompile Include="ui\GWireMask.cpp" />
+    <ClCompile Include="ui\Canvas.cpp" />
+    <ClCompile Include="ui\OpenGlWnd.cpp" />
+    <ClCompile Include="ui\WireMask.cpp" />
     <ClCompile Include="ViewTree.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +269,11 @@
     <Image Include="res\Toolbar.bmp" />
     <Image Include="res\Toolbar256.bmp" />
     <Image Include="UserImages.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GUtlLib\GUtlLib.vcxproj">
+      <Project>{40fd6524-f115-4de4-909f-43abef272f34}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
