@@ -5,6 +5,7 @@
 #include "Resource.h"
 #include "AnnotationFtTool.h"
 
+
 #ifdef _DEBUG
 #undef THIS_FILE
 static char THIS_FILE[]=__FILE__;
@@ -20,6 +21,47 @@ CFileView::CFileView()
 
 CFileView::~CFileView()
 {
+}
+
+void CFileView::UpdateTreeView(CAnnotation * ann)
+{
+	
+	ASSERT(ann);
+
+
+	HTREEITEM hRoot = m_wndFileView.InsertItem(CString(ann->db_name.c_str()), 0, 0);
+	m_wndFileView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
+	
+	vector<CWireMask*> *pVect = &(ann->list_wireMask);
+	
+	int length = pVect->size();
+	for (size_t i = 0; i < length; i++)
+	{
+
+		CWireMask* item = ((*pVect)[i]);
+
+		CString strTitle;
+		strTitle.Format(_T("Image %d"), i);
+		HTREEITEM hSrc = m_wndFileView.InsertItem(strTitle, 0, 0, hRoot);
+		HTREEITEM hItem;
+
+
+		int n = item->m_components.size();
+		int j = 0;
+		for (auto jter = item->m_components.begin();
+			jter != item->m_components.end(); jter++, j++)
+		{
+			
+			CWireComponet com = (*jter);
+			hItem = m_wndFileView.InsertItem(CString(com.name.c_str()), 2, 2, hSrc);
+			m_wndFileView.SetItemData(hItem, (DWORD)(i * n + j));
+		}
+
+
+
+	}
+
+
 }
 
 BEGIN_MESSAGE_MAP(CFileView, CDockablePane)

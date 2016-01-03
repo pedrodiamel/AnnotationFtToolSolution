@@ -1,6 +1,7 @@
 
 #include "stdafx.h"
 #include "ViewTree.h"
+#include "MainFrm.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -50,17 +51,14 @@ void CViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 	int iImagen = 0, iImagenSel = 0;
 	HTREEITEM hItem = pNMTreeView->itemNew.hItem;
 	int i = 0, j = 0;
-
-
-	CString str = GetItemText(hItem);
+	
+	CString str = GetItemText(hItem);	
+	DWORD_PTR data = GetItemData(hItem);
 	GetItemImage(hItem, iImagen, iImagenSel);
-	DWORD_PTR pData = GetItemData(hItem);
-	i = (int)(pData) / 7;
-	j = (int)(pData) % 7;
 
-	TRACE("OnTvnSelchanged() %s, %d, %d\n", str, i, j);
-
-
+	
+	//Update
+	((CMainFrame*)GetParentFrame())->onSelectItemTreeView(str, data);
 
 
 	*pResult = 0;

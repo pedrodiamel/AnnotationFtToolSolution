@@ -38,10 +38,23 @@ public:
 
 		TRACE("CLoadMuctCommand():Ejecutar \n");
 
+		const int num_component = 7;
+		string NAME_COMPONENT[num_component] =
+		{
+			"mouth",
+			"left eye",
+			"right eye",
+			"nose",
+			"left eyebrow",
+			"right eyebrow",
+			"chin"
+		};
+
 
 		//Get annotation tool class
-		CAnnotation *ann = &_pDoc->m_annotation;
-
+		CAnnotation *ann = _pDoc->GetAnnotation();
+		ann->db_name = "muct-db";
+		ann->num_component = 7;
 
 		//Path configurate 
 		string pathNameOut = "out/";
@@ -72,11 +85,23 @@ public:
 				continue;
 
 			
-			CImageProxy imagen(db.getName());				
-			(*ann).addWireMask( new CWireMask(imagen, db.getPoints()) );
+			CImageProxy imagen(db.getPathName());				
+			CWireMask *wireMask = new CWireMask(imagen, db.getPoints());
+			CWireComponet wireComponent;
 
-			//Mat *img = ((Mat*)imagen);
-			//CWireMask *wireMask = (*ann).list_wireMask[0];
+			for (size_t comp = 0; comp < num_component; comp++)
+			{
+				string name_comp = NAME_COMPONENT[comp];				
+				wireComponent.name = name_comp;
+				wireComponent.inx_points.clear();
+				wireComponent.conection.clear();
+				wireMask->m_components.push_back(wireComponent);
+
+
+			}			
+			
+			(*ann).addWireMask( wireMask );			 
+			
 
 			TRACE(">>%s, %s\n", db.getName().c_str(), db.getIndex().c_str());
 
@@ -85,7 +110,7 @@ public:
 
 		
 		file.close();
-
+		
 
 
 

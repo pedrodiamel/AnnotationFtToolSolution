@@ -211,6 +211,7 @@
     <ClInclude Include="ui\GWireMask.h" />
     <ClInclude Include="ui\Canvas.h" />
     <ClInclude Include="ui\OpenGlWnd.h" />
+    <ClInclude Include="Utitity.h" />
     <ClInclude Include="ViewTree.h" />
   </ItemGroup>
   <ItemGroup>

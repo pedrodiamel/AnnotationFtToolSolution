@@ -15,9 +15,12 @@ bool CDataMuctDb::load(string pathName, string info)
 {
 
 	size_t p1 = 0, p2;
+	m_itemname = "";
+	m_itempath = "";
 
 	//set image directory
-	string idir = pathName; if (idir[idir.length() - 1] != '/') idir += "/";
+	string idir = pathName; 
+	if (idir[idir.length() - 1] != '/') idir += "/";
 	idir += "jpg/";
 
 	//get image name
@@ -25,19 +28,19 @@ bool CDataMuctDb::load(string pathName, string info)
 	if (p2 == string::npos) { 
 		return false;
 	}
-	m_name = info.substr(p1, p2 - p1);
+	m_itemname = info.substr(p1, p2 - p1);
 
 	//check name
-	if ((strcmp(m_name.c_str(), "i434xe-fn") == 0) || //corrupted data
-		(m_name[1] == 'r') ||//ignore flipped images
-		(m_name[0] != 'i') //prefijo i
+	if ((strcmp(m_itemname.c_str(), "i434xe-fn") == 0) || //corrupted data
+		(m_itemname[1] == 'r') ||//ignore flipped images
+		(m_itemname[0] != 'i') //prefijo i
 		) 
 	{
-		m_name = "";                
+		m_itemname = "";
 		return false;
 	}
 	
-	m_name = idir + m_name + ".jpg"; p1 = p2 + 1;
+	m_itempath = idir + m_itemname + ".jpg"; p1 = p2 + 1;
 
 	//get index
 	p2 = info.find(",", p1);

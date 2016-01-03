@@ -2,6 +2,7 @@
 #pragma once
 
 #include "ViewTree.h"
+#include "Annotation.h"
 
 class CFileViewToolBar : public CMFCToolBar
 {
@@ -35,6 +36,9 @@ protected:
 // Implementation
 public:
 	virtual ~CFileView();
+	void UpdateTreeView(CAnnotation *ann);
+
+
 
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);

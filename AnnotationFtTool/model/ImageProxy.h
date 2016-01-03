@@ -7,8 +7,7 @@ class CImageProxy
 {
 public:
 	
-	
-	
+		
 	CImageProxy(const string &pathName, const int flag=2);
 	CImageProxy(const CImageProxy& img)	{
 		
@@ -39,8 +38,8 @@ public:
 
 	~CImageProxy();
 	operator Mat*(){ return getImagen(); }
-
 	
+
 
 private:
 	

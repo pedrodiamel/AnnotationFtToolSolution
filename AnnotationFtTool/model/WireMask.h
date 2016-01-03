@@ -1,10 +1,6 @@
 #pragma once
 
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <vector>
-#include <map>
-#include <assert.h>
+
 
 #include "ImageProxy.h"
 
@@ -16,19 +12,41 @@ using namespace std;
 class CWireComponet {
 
 public:
-
-	string name;
-	unsigned int id;
+		
+	string name;	
 	vector<unsigned int> inx_points;
 	std::vector<Vec2i> conection;
+
+public:
+
+	CWireComponet():name(""){}
+	CWireComponet(string nameComponent):name(nameComponent){}
+	~CWireComponet() {}
+	CWireComponet(const CWireComponet& comp) {
+		
+		name = comp.name;
+		inx_points = comp.inx_points;
+		conection = comp.conection;	
+	}
+
+	CWireComponet operator=(const CWireComponet& comp)
+	{
+		if (&comp != this)
+		{
+			name = comp.name;
+			inx_points = comp.inx_points;
+			conection = comp.conection;
+
+		}
+		return *this;
+	
+	}
+
+
 
 };
 
 
-
-
-typedef std::map<const std::string, CWireComponet* >::iterator ComponentMapIterator;
-typedef std::map<const std::string, CWireComponet* >::value_type ValueType;
 
 
 
@@ -59,90 +77,46 @@ public:
 	CWireMask(const CImageProxy &image);
 	CWireMask(const CImageProxy &image, const vector<Point2f> &points);
 	CWireMask(const string &pathName, const int flag = 2);
+	
+	CWireMask(const CWireMask& mask)
+		: m_image(mask.m_image)
+	{
+		m_points = mask.m_points;
+		m_components = mask.m_components;
+	}
+
+
 	~CWireMask();
 
 
-	CWireComponet* 
-	addNewComponet(
-		const std::string &name, //name of contions 
-		const CWireComponet &component //struct conection
-		)
+	CWireMask operator=(const CWireMask& mask)
 	{
-		
-		CWireComponet *pComponent;
-		auto iter = addComponent(name);
-		pComponent = new CWireComponet();
-		iter->second = pComponent;
-
-		return iter->second;
-
-	}
-
-	CWireComponet*
-	getComponent(const std::string &name)
-	{
-		auto iter = m_componentnMap.find(name);
-		if (iter != m_componentnMap.end())
+		if (&mask != this)
 		{
-			CWireComponet *pConection = (*iter).second;
-			return pConection;
+			m_image = mask.m_image;
+			m_points = mask.m_points;
+			m_components = mask.m_components;
+			
 		}
-		return nullptr;
+		return *this;
 	}
 
-	void 
-	deleteAllComponent()
-	{
-
-		for (auto iter = m_componentnMap.begin(); iter != m_componentnMap.end(); ++iter)
-		{
-			delete iter->second;
-			iter->second = nullptr;
-		}
-
-		m_componentnMap.clear();
-
-	}
-
-
-
+	
+	vector<Point2f>*
+	getPoints() { return &m_points; }
+	CImageProxy getImage() { return m_image; }
 
 
 public:
 
-	vector<Point2f> m_points; //points
-	std::map<const std::string, CWireComponet*> m_componentnMap; //map component
+
 	CImageProxy m_image; //imagen
-	
-
-
-private:
-
-	
-	ComponentMapIterator 
-	addComponent(const std::string name)
-	{
-		CWireComponet* pComponent = nullptr;
-		ComponentMapIterator iter = m_componentnMap.insert(std::make_pair(name, pComponent)).first;
-		return iter;
-	}
-
-	void removeComponent(ComponentMapIterator iter)
-	{
-		assert(iter != m_componentnMap.end());
-
-		delete iter->second;
-		iter->second = nullptr;
-
-		m_componentnMap.erase(iter);
-	}
-
-
+	vector<Point2f> m_points; //points
+	vector<CWireComponet> m_components; //vector of components
 
 	
 	
-
-
+	
 
 };
 

@@ -12,7 +12,8 @@ class CDataSet
 
 protected:
 
-	string m_name;
+	string m_itemname;
+	string m_itempath;
 	string m_index;
 	vector<Point2f> m_points;
 
@@ -22,7 +23,9 @@ public:
 	~CDataSet();
 
 	//funcion access
-	string getName()const { return m_name; }
+	string getName()const { return m_itemname; }
+	string getPathName()const { return m_itempath; }
+
 	string getIndex()const { return m_index; }
 	vector<Point2f> getPoints()const { return m_points; }
 

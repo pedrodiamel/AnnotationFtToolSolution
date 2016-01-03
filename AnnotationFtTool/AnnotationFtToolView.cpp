@@ -3,6 +3,8 @@
 //
 
 #include "stdafx.h"
+
+
 // SHARED_HANDLERS can be defined in an ATL project implementing preview, thumbnail
 // and search filter handlers and allows sharing of document code with that project.
 #ifndef SHARED_HANDLERS
@@ -11,6 +13,7 @@
 
 #include "AnnotationFtToolDoc.h"
 #include "AnnotationFtToolView.h"
+#include "MainFrm.h"
 
 #include "command\LoadMuctCommand.h"
 
@@ -154,6 +157,9 @@ void CAnnotationFtToolView::OnDatasetMuct()
 	// TODO: Add your command handler code here
 	CLoadMuctCommand cmd(GetDocument());
 	cmd.Ejecutar();
+
+	//Update
+	((CMainFrame*)AfxGetMainWnd())->UpdateUI(this);
 
 
 }

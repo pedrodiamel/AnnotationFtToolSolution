@@ -15,8 +15,8 @@ protected: // create from serialization only
 // Attributes
 public:
 
-
-	CAnnotation m_annotation;
+	CAnnotation* GetAnnotation() { return &m_annotation; }
+	
 
 // Operations
 public:
@@ -39,6 +39,9 @@ public:
 #endif
 
 protected:
+
+	CAnnotation m_annotation;
+
 
 // Generated message map functions
 protected:

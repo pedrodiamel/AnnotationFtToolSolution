@@ -4,8 +4,11 @@
 
 #pragma once
 #include "FileView.h"
-//#include "ClassView.h"
 #include "PropertiesWnd.h"
+//#include "ClassView.h"
+
+
+class CAnnotationFtToolView;
 
 class CMainFrame : public CFrameWndEx
 {
@@ -19,6 +22,9 @@ public:
 
 // Operations
 public:
+
+	void UpdateUI(CAnnotationFtToolView* pCurrView);
+	void onSelectItemTreeView(CString strName, DWORD data);
 
 // Overrides
 public:
@@ -38,9 +44,9 @@ protected:  // control bar embedded members
 	CMFCToolBar       m_wndToolBar;
 	CMFCStatusBar     m_wndStatusBar;
 	CMFCToolBarImages m_UserImages;
-	CFileView         m_wndFileView;
-	//CClassView        m_wndClassView;
+	CFileView         m_wndFileView;	
 	CPropertiesWnd    m_wndProperties;
+	//CClassView        m_wndClassView;
 
 // Generated message map functions
 protected:

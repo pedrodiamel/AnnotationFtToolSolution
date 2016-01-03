@@ -1,10 +1,13 @@
 #include "stdafx.h"
 #include "Annotation.h"
-
+#include "Utitity.h"
 
 CAnnotation::CAnnotation()
-	:current_wireMask(NULL)
-	, current_iter(0)
+	: current_iter(0)
+	, num_component(0)
+	, current_comp_name("")
+	, current_comp(0)
+	, pCurrentWireMask(NULL)
 {
 }
 
@@ -12,16 +15,13 @@ CAnnotation::CAnnotation()
 CAnnotation::~CAnnotation()
 {
 
+	SafeDelete(pCurrentWireMask);
+
 	for (auto iter = list_wireMask.begin(); iter != list_wireMask.end(); iter++)
 	{
-		CWireMask *valor = *iter;
-
-		if(valor)
-		delete valor;
-		valor = NULL;
+		CWireMask *mask = (*iter);
+		SafeDelete(mask);
 
 	}
-
-
 
 }

@@ -37,11 +37,14 @@
 
 #include <stdio.h>
 #include <tchar.h>
-#include <string>
 #include <iostream>
 #include <assert.h>
 #include <math.h>
 
+//STL HEADER
+#include <string>
+#include <vector>
+#include <map>
 
 
 
@@ -73,6 +76,7 @@ using namespace boost::filesystem;
 
 
 //LOCAL HEADER
+#include "Utitity.h"
 #include "ui\OpenGlWnd.h"
 #include"ui\Canvas.h"
 

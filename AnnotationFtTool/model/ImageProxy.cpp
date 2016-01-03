@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ImageProxy.h"
+#include "..\Utitity.h"
 
 
 CImageProxy::CImageProxy(const string &pathName, const int flag)
@@ -7,16 +8,13 @@ CImageProxy::CImageProxy(const string &pathName, const int flag)
 	,m_path(pathName)
 	,m_flag(flag)
 {
-
-
+	
 }
 
 
 CImageProxy::~CImageProxy()
 {
-	if (m_imagen)
-	{
-		delete m_imagen;
-		m_imagen = NULL;
-	}
+
+	SafeDelete(m_imagen);
+
 }

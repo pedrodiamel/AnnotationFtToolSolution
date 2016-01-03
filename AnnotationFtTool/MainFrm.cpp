@@ -6,6 +6,10 @@
 #include "AnnotationFtTool.h"
 
 #include "MainFrm.h"
+#include "AnnotationFtToolDoc.h"
+#include "AnnotationFtToolView.h"
+
+#include "Utitity.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -162,6 +166,51 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CMFCToolBar::SetBasicCommands(lstBasicCommands);
 
 	return 0;
+}
+
+void CMainFrame::UpdateUI(CAnnotationFtToolView * pCurrView)
+{
+	CAnnotationFtToolDoc *pDoc = pCurrView->GetDocument();
+	ASSERT(pDoc);
+	
+	m_wndFileView.UpdateTreeView(pDoc->GetAnnotation());
+	
+}
+
+void CMainFrame::onSelectItemTreeView(CString strName, DWORD data)
+{
+	
+	CFrameWnd* pFrame = GetActiveFrame();
+	if (pFrame == NULL)
+	{
+		return;
+	}
+
+	CAnnotationFtToolDoc* pDoc = (CAnnotationFtToolDoc*)pFrame->GetActiveDocument();
+	if (pDoc == NULL)
+	{
+		return;
+	}
+
+	ASSERT_VALID(pDoc);
+
+	CAnnotationFtToolView* pView = DYNAMIC_DOWNCAST(CAnnotationFtToolView, pFrame->GetActiveView());
+	if (pView == NULL)
+	{
+		return;
+	}
+
+
+	string sel_name; 
+	StrToStd(sel_name, strName);
+
+	CAnnotation *ann = pDoc->GetAnnotation();		
+	ann->selectCurrentWireMask((int)data, sel_name);
+
+	pView->m_wndCanvas.setImage(*ann->pCurrentWireMask->getImage());
+
+
+
 }
 
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
