@@ -6,6 +6,8 @@
 #include <map>
 #include <assert.h>
 
+#include "ImageProxy.h"
+
 using namespace cv;
 using namespace std;
 
@@ -13,17 +15,14 @@ using namespace std;
 
 class CWireComponet {
 
-
 public:
 
-
+	string name;
 	unsigned int id;
-	vector<Point2f> points;
-	std::vector<unsigned int> conection;
-	
+	vector<unsigned int> inx_points;
+	std::vector<Vec2i> conection;
 
 };
-
 
 
 
@@ -55,17 +54,11 @@ class CWireMask
 
 	
 public:
-	
-
-	vector<vector<Point2f> > points;         //points
-	vector<Vec2i> conections;               //indices of connected points
-	std::map<const std::string, CWireComponet*> m_componentnMap;
 
 
-public:
-
-
-	CWireMask();
+	CWireMask(const CImageProxy &image);
+	CWireMask(const CImageProxy &image, const vector<Point2f> &points);
+	CWireMask(const string &pathName, const int flag = 2);
 	~CWireMask();
 
 
@@ -115,7 +108,12 @@ public:
 
 
 
+public:
 
+	vector<Point2f> m_points; //points
+	std::map<const std::string, CWireComponet*> m_componentnMap; //map component
+	CImageProxy m_image; //imagen
+	
 
 
 private:

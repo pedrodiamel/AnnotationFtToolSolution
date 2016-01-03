@@ -12,6 +12,10 @@
 #include "AnnotationFtToolDoc.h"
 #include "AnnotationFtToolView.h"
 
+#include "command\LoadMuctCommand.h"
+
+
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -25,6 +29,7 @@ BEGIN_MESSAGE_MAP(CAnnotationFtToolView, CView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
 	ON_WM_SIZE()
+	ON_COMMAND(ID_DATASET_MUCT, &CAnnotationFtToolView::OnDatasetMuct)
 END_MESSAGE_MAP()
 
 // CAnnotationFtToolView construction/destruction
@@ -132,10 +137,6 @@ void CAnnotationFtToolView::OnInitialUpdate()
 		return;
 	}
 
-
-
-
-
 }
 
 
@@ -145,4 +146,14 @@ void CAnnotationFtToolView::OnSize(UINT nType, int cx, int cy)
 
 	// TODO: Add your message handler code here
 	AdjustLayout();
+}
+
+
+void CAnnotationFtToolView::OnDatasetMuct()
+{
+	// TODO: Add your command handler code here
+	CLoadMuctCommand cmd(GetDocument());
+	cmd.Ejecutar();
+
+
 }

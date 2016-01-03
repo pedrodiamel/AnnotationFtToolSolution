@@ -48,6 +48,7 @@ protected:
 public:
 	virtual void OnInitialUpdate();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnDatasetMuct();
 };
 
 #ifndef _DEBUG  // debug version in AnnotationFtToolView.cpp

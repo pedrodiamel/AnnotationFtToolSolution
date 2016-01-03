@@ -1,9 +1,9 @@
 #pragma once
 #include "GObject.h"
-#include "WireMask.h"
+#include "..\model\WireMask.h"
 
-#include <GL/glew.h>
-#include <GL/freeglut.h>
+#include <GL\glew.h>
+#include <GL\freeglut.h>
 
 class CGWireMask :
 	public CGObject

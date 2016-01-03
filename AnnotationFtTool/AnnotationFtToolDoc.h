@@ -4,7 +4,7 @@
 
 
 #pragma once
-
+#include "Annotation.h"
 
 class CAnnotationFtToolDoc : public CDocument
 {
@@ -14,6 +14,9 @@ protected: // create from serialization only
 
 // Attributes
 public:
+
+
+	CAnnotation m_annotation;
 
 // Operations
 public:

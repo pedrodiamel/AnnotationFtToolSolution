@@ -40,7 +40,7 @@ public:
 	*
 	*/
 
-	virtual void load(string pathName, string info)=0;
+	virtual bool load(string pathName, string info)=0;
 
 
 

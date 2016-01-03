@@ -23,7 +23,7 @@ public:
 	CDataMuctDb();
 	~CDataMuctDb();
 	
-	virtual void load(string pathName, string info);
+	virtual bool load(string pathName, string info);
 	
 };
 
