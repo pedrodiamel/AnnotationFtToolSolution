@@ -9,6 +9,9 @@ CCanvas::CCanvas()
 	, m_posScrollX(1)
 	, m_posScrollY(1)
 	, m_img(cv::Mat())
+	, m_mask(NULL)
+
+
 {
 
 
@@ -29,9 +32,7 @@ void CCanvas::InitExtraSubsystems()
 	
 	m_img = cv::Mat();	
 	m_gImage.Prepare();
-	//m_gMask.SetWireMask( &m_mask );
-	//m_gMask.Prepare();
-
+	m_gMask.Prepare();
 
 	//visualize scroll
 	ShowScrollBar(SB_BOTH);
@@ -48,7 +49,7 @@ void CCanvas::DoFrame(float timeDelta)
 	
 
 	m_gImage.Draw(); //draw imge
-	//m_gMask.Draw();
+	m_gMask.Draw();
 
 
 
@@ -66,6 +67,9 @@ void CCanvas::LButtonDown(UINT nFlags, CPoint point)
 
 void CCanvas::LButtonUp(UINT nFlags, CPoint point)
 {
+	m_gMask.LButtonUp(0, point.x, point.y);
+	InvalidateRect(NULL, FALSE);
+
 }
 
 void CCanvas::MouseMove(UINT nFlags, CPoint point)
@@ -82,7 +86,9 @@ void CCanvas::MouseWheel(UINT nFlags, short zDelta, CPoint pt)
 	m_scroll += m_deltaScroll;
 
 
-	//m_gImage.Zoom(m_deltaScroll);
+	m_gImage.Zoom(m_deltaScroll);
+	m_gMask.Zoom(m_deltaScroll);
+
 
 	InvalidateRect(NULL, FALSE);
 
@@ -90,6 +96,12 @@ void CCanvas::MouseWheel(UINT nFlags, short zDelta, CPoint pt)
 
 void CCanvas::KeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
+}
+
+inline void CCanvas::Size(UINT nType, int cx, int cy)
+{
+	SetScrollRange(SB_HORZ, 0, cx);
+	SetScrollRange(SB_VERT, 0, cy);
 }
 
 
@@ -168,12 +180,9 @@ void CCanvas::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	}
 
 	// Set the new position of the thumb (scroll box).
-	SetScrollPos(SB_HORZ, curpos);
-	m_posScrollX = curpos;
-
-	///m_pMultiPlotTool->m_posX = curpos;
+	//SetScrollPos(SB_HORZ, curpos);
+	UpdateScrollX(curpos);
 	InvalidateRect(NULL, FALSE);
-
 
 	COpenGlWnd::OnHScroll(nSBCode, nPos, pScrollBar);
 }
@@ -247,12 +256,9 @@ void CCanvas::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	}
 
 	// Set the new position of the thumb (scroll box).
-	SetScrollPos(SB_VERT, curpos);
-	m_posScrollY = curpos;
-
-	//m_pMultiPlotTool->m_posY = curpos;
+	//SetScrollPos(SB_VERT, curpos);
+	UpdateScrollY(curpos);
 	InvalidateRect(NULL, FALSE);
-
 
 	COpenGlWnd::OnVScroll(nSBCode, nPos, pScrollBar);
 }

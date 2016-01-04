@@ -2,8 +2,13 @@
 #include "GImage.h"
 
 
-CGImage::CGImage():
-	m_img(NULL)
+CGImage::CGImage()
+	: m_img(NULL)
+	, m_scalaXY(1)
+	, m_scalaX(1)
+	, m_scalaY(1)
+	, m_dx(0)
+	, m_dy(0)
 {
 	m_rBox = CRect(0,0,0,0);
 }
@@ -13,21 +18,6 @@ CGImage::~CGImage()
 {
 }
 
-void CGImage::SetPos(int x, int y)
-{
-	
-	m_rBox.left = x; m_rBox.top = y;
-	m_position = gutl::CVector(x, y, 0);
-
-
-}
-
-void CGImage::Move(int x, int y)
-{
-	m_rBox = m_rBox + x; m_rBox = m_rBox + y;
-	m_position += gutl::CVector(x, y, 0);
-
-}
 
 
 void CGImage::Prepare()
@@ -55,8 +45,20 @@ void CGImage::Draw()
 {
 
 	int x, y, w, h;
-	x = m_rBox.left; y = m_rBox.top;
-	w = Width(); h = Height();
+
+
+	x = m_rBox.left + m_dx;
+	y = m_rBox.top  + m_dy;
+	w = Width(); 
+	h = Height();
+
+	float aspX = (float)w / h;
+	float aspY = (float)h / w;
+
+
+	w = w - m_scalaXY*aspX;
+	h = h - m_scalaXY;
+
 
 	draw_image(x, y, w, h);
 

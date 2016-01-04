@@ -25,25 +25,26 @@ public:
 		
 		assert(img);
 		m_img = img; 
-		m_imW = img->cols;
-		m_imH = img->rows;
+		m_imWidth = img->cols; m_imHeight = img->rows;
 	
 	}
+	
+	void Move(int x, int y) { m_dx = x; m_dy = y; }
 
-
-	void SetPos(int x, int y);
-	void SetSize(int w, int h) { m_rBox.right = w; m_rBox.bottom = h; }
-	void Move(int x, int y);
 	void Zoom(int zoom)
 	{
 
-		float w = Width() + 0.5;
-		float h = Height() + 0.5;
-		float aspX = (float)m_imW / m_imH;
-		float aspY = (float)m_imH / m_imW;
-
-		SetSize(w - zoom*aspX,  h - zoom);
+		m_scalaXY += zoom;
+		m_scalaX = m_scalaXY; m_scalaY = m_scalaXY;
 	
+	}
+
+	void Restart() {
+
+		m_dx = 0; m_dy = 0;
+		m_scalaXY = 0;
+		m_scalaX = m_scalaY = m_scalaXY;
+
 	}
 
 
@@ -55,16 +56,22 @@ public:
 private:
 
 	cv::Mat *m_img; //imagen 
-	int m_imW, m_imH;
-
-
-	
+	int m_imWidth;
+	int m_imHeight;
+		
 	GLuint gl_rgb_tex;
 	GLuint gl_colormap_tex;
 	unsigned char color_map[3 * 256];
 	int rgb_tex_width; //Real width of texture 
 	int rgb_tex_height; //Real heightof texture
 	
+	float m_scalaXY;
+	float m_scalaX; //scala en x
+	float m_scalaY; //scala en y
+	
+	float m_dx;
+	float m_dy;
+
 
 private:
 

@@ -136,9 +136,13 @@ BEGIN
     BEGIN
         MENUITEM "E&xit",                       ID_APP_EXIT
     END
+    POPUP "Tools"
+    BEGIN
+        MENUITEM "Restart",                     ID_TOOLS_RESTART
+    END
     POPUP "&Dataset"
     BEGIN
-        MENUITEM "&Muct",                       ID_DATASET_MUCT
+        MENUITEM "Load &Muct",                  ID_DATASET_MUCT
     END
     POPUP "&Help"
     BEGIN
@@ -148,11 +152,9 @@ END
 
 IDR_POPUP_EDIT MENU
 BEGIN
-    POPUP "Edit"
+    POPUP "Tools"
     BEGIN
-        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
-        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
-        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM "Restart",                     ID_TOOLS_RESTART
     END
 END
 

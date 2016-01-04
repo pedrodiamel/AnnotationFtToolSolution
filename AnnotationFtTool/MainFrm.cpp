@@ -207,8 +207,8 @@ void CMainFrame::onSelectItemTreeView(CString strName, DWORD data)
 	CAnnotation *ann = pDoc->GetAnnotation();		
 	ann->selectCurrentWireMask((int)data, sel_name);
 
-	pView->m_wndCanvas.setImage(*ann->pCurrentWireMask->getImage());
-
+	//pView->m_wndCanvas.setImage(*ann->pCurrentWireMask->getImage());
+	pView->m_wndCanvas.setMask(ann->pCurrentWireMask);
 
 
 }

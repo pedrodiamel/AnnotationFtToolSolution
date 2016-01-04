@@ -77,8 +77,18 @@ using namespace boost::filesystem;
 
 //LOCAL HEADER
 #include "Utitity.h"
+#include "model\WireMask.h"
+
+#include "ui\GObject.h"
+#include "ui\GImage.h"
+#include "ui\GWireMask.h"
 #include "ui\OpenGlWnd.h"
-#include"ui\Canvas.h"
+#include "ui\Canvas.h"
+
+
+
+
+
 
 
 

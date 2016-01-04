@@ -35,7 +35,7 @@ public:
 
 	}
 
-
+	CWireMask * getCurrentWireMask() { return pCurrentWireMask;  }
 
 public:
 

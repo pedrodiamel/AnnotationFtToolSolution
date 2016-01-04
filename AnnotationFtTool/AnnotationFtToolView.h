@@ -49,6 +49,7 @@ public:
 	virtual void OnInitialUpdate();
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnDatasetMuct();
+	afx_msg void OnToolsRestart();
 };
 
 #ifndef _DEBUG  // debug version in AnnotationFtToolView.cpp

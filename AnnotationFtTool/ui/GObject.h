@@ -27,10 +27,20 @@ public:
 	virtual void Prepare() = 0;
 	virtual void Draw() = 0;
 
-	int Width()const { return  m_rBox.Width(); }
-	int Height()const { return m_rBox.Height(); }
+	virtual	int 
+	Width()const { return  m_rBox.Width(); }
+	virtual int 
+	Height()const { return m_rBox.Height(); }
 
+	virtual	void 
+	SetPos(int x, int y){
 
+		m_rBox.left = x; m_rBox.top = y;
+		m_position = gutl::CVector(x, y, 0);
+	}
+
+	virtual	void 
+	SetSize(int w, int h) { m_rBox.right = w; m_rBox.bottom = h; }
 
 };
 

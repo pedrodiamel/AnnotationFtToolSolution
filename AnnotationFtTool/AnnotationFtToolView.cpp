@@ -33,6 +33,7 @@ BEGIN_MESSAGE_MAP(CAnnotationFtToolView, CView)
 	ON_WM_RBUTTONUP()
 	ON_WM_SIZE()
 	ON_COMMAND(ID_DATASET_MUCT, &CAnnotationFtToolView::OnDatasetMuct)
+	ON_COMMAND(ID_TOOLS_RESTART, &CAnnotationFtToolView::OnToolsRestart)
 END_MESSAGE_MAP()
 
 // CAnnotationFtToolView construction/destruction
@@ -162,4 +163,11 @@ void CAnnotationFtToolView::OnDatasetMuct()
 	((CMainFrame*)AfxGetMainWnd())->UpdateUI(this);
 
 
+}
+
+
+void CAnnotationFtToolView::OnToolsRestart()
+{
+	// TODO: Add your command handler code here
+	m_wndCanvas.Restart();
 }

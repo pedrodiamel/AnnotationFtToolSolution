@@ -70,21 +70,20 @@ public:
 class CWireMask
 {
 
-	
+
 public:
 
 
 	CWireMask(const CImageProxy &image);
 	CWireMask(const CImageProxy &image, const vector<Point2f> &points);
 	CWireMask(const string &pathName, const int flag = 2);
-	
+
 	CWireMask(const CWireMask& mask)
 		: m_image(mask.m_image)
 	{
 		m_points = mask.m_points;
 		m_components = mask.m_components;
 	}
-
 
 	~CWireMask();
 
@@ -96,15 +95,36 @@ public:
 			m_image = mask.m_image;
 			m_points = mask.m_points;
 			m_components = mask.m_components;
-			
+
 		}
 		return *this;
 	}
 
-	
-	vector<Point2f>*
-	getPoints() { return &m_points; }
+
+	vector<Point2f>* getPoints() { return &m_points; }
 	CImageProxy getImage() { return m_image; }
+
+
+	int fiendClosestPoint(const Point2f p, const double eps = 10) {
+		
+		float dist; 
+		int n = m_points.size();
+		for (int i = 0; i < n; i++)
+		{
+			Point2f pt = m_points[i];
+			dist = norm(pt - p);
+			if (dist < eps)
+				return i;
+
+		}
+		return -1;	
+	}
+
+
+
+
+
+
 
 
 public:
