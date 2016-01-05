@@ -48,19 +48,27 @@ public:
 		CWireComponet wireCom;
 		wireCom = *pCurrentWireMask->getCurrentComponent();
 		wireCom.inx_points = indxs;
+		wireCom.conection.clear();
+		//wireCom.inx_symmetry.clear();
 
-		//create conexion ...
+				
 		n = indxs.size();
-		if (n < 1)return;
-		
-		wireCom.conection.resize(n);
-		for (int i = 1; i < n; i++)
+		if (n > 0)
 		{
-			v = Vec2i(indxs[i - 1], indxs[i]);
-			wireCom.conection.push_back(v);
-		}
-	
+			//create conexion ...
+			wireCom.conection.resize(n);
+			for (int i = 1; i < n; i++)
+			{
+				v = Vec2i(indxs[i - 1], indxs[i]);
+				wireCom.conection.push_back(v);
+			}
+
+			////create symetric default ...
+			//wireCom.inx_symmetry = wireCom.inx_points;
+			//std::reverse(wireCom.inx_symmetry.begin(), wireCom.inx_symmetry.end());
 		
+		}
+			
 		//update
 		*pCurrentWireMask->getCurrentComponent() = wireCom;
 		*list_wireMask[current_iter] = *pCurrentWireMask;
@@ -79,6 +87,9 @@ public:
 		 int n = list_wireMask.size();
 		 for (int i = 0; i < n; i++)
 		 {
+			 if (i == current_iter)
+				 continue;
+
 			 // update
 			 CWireMask* pMask = list_wireMask[i];
 			 pMask->changeCurrentComponent(idx);

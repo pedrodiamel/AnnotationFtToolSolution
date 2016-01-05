@@ -41,6 +41,8 @@ BEGIN_MESSAGE_MAP(CAnnotationFtToolView, CView)
 	ON_COMMAND(ID_TOOLS_VERTEX, &CAnnotationFtToolView::OnToolsVertex)
 	ON_UPDATE_COMMAND_UI(ID_TOOLS_VERTEX, &CAnnotationFtToolView::OnUpdateToolsVertex)
 	ON_COMMAND(ID_TOOLS_REPLICATEALL, &CAnnotationFtToolView::OnToolsReplicateall)
+	ON_COMMAND(ID_TOOLS_DESELECT, &CAnnotationFtToolView::OnToolsDeselect)
+	ON_COMMAND(ID_TOOLS_DELETE, &CAnnotationFtToolView::OnToolsDelete)
 END_MESSAGE_MAP()
 
 // CAnnotationFtToolView construction/destruction
@@ -149,6 +151,9 @@ void CAnnotationFtToolView::OnInitialUpdate()
 		return;
 	}
 
+	m_wndCanvas.ShowWindow(SW_SHOWNORMAL);
+	AdjustLayout();
+
 }
 
 
@@ -186,10 +191,11 @@ void CAnnotationFtToolView::OnToolsAdd()
 	// TODO: Add your command handler code here
 	CAnnotationFtToolDoc *pDoc;	
 	CAnnotation *ann;
-
 	pDoc = GetDocument();
 	ann = pDoc->GetAnnotation();
 	ann->updateCurrentComponent( (*m_wndCanvas.getSelectPoints()) );
+	
+	m_wndCanvas.InvalidateRect(NULL, FALSE);
 	
 
 }
@@ -216,6 +222,7 @@ void CAnnotationFtToolView::OnToolsVertex()
 {
 	// TODO: Add your command handler code here
 	m_toolState = TOOLSTATES::ST_VERTEX;
+	m_wndCanvas.changeCurrentToolState((int)m_toolState);
 }
 
 
@@ -231,11 +238,35 @@ void CAnnotationFtToolView::OnToolsReplicateall()
 	// TODO: Add your command handler code here
 	CAnnotationFtToolDoc *pDoc;
 	CAnnotation *ann;
-
 	pDoc = GetDocument();
 	ann = pDoc->GetAnnotation();
 	ann->replicateCurrentComponent(); 
 
 
+
+}
+
+
+void CAnnotationFtToolView::OnToolsDeselect()
+{
+	// TODO: Add your command handler code here
+	m_wndCanvas.clearSelect();
+	m_wndCanvas.InvalidateRect(NULL, FALSE);
+
+}
+
+
+void CAnnotationFtToolView::OnToolsDelete()
+{
+	// TODO: Add your command handler code here
+	CAnnotationFtToolDoc *pDoc;
+	CAnnotation *ann;
+	pDoc = GetDocument();
+	ann = pDoc->GetAnnotation();
+
+	vector<int> nullpoints; nullpoints.clear();
+	ann->updateCurrentComponent(nullpoints);
+
+	m_wndCanvas.InvalidateRect(NULL, FALSE);
 
 }

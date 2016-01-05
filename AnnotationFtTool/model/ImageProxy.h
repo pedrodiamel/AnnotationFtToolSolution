@@ -38,7 +38,6 @@ public:
 
 	~CImageProxy();
 	operator Mat*(){ return getImagen(); }
-	
 
 
 private:
@@ -60,10 +59,10 @@ private:
 		if (m_flag < 2) img = imread(m_path, 0);
 		else img = imread(m_path, 1);
 
-		if (m_flag % 2 != 0)flip(img, im, 1); else im = img;
+		//if (m_flag % 2 != 0)flip(img, im, 1); else im = img;
 
 		m_imagen = new Mat();
-		(*m_imagen) = im;
+		(*m_imagen) = img;
 
 		return m_imagen;
 	

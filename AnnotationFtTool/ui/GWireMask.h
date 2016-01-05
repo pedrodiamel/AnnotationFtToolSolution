@@ -15,7 +15,12 @@ class CGWireMask :
 public:
 
 	//state
-	enum MASKUISTATES { ST_VERTEX = 0, ST_COMPONECT, ST_SELECTALL };
+	typedef 
+	enum _MASKUISTATES 
+	{	ST_VERTEX = 0, 
+		ST_COMPONECT, 
+		ST_SELECTALL 
+	}MASKUISTATES;
 	MASKUISTATES m_currentState;
 
 
@@ -32,7 +37,7 @@ public:
 	void SetWireMask(CWireMask *mask) { 
 		
 		m_mask = mask; 	
-		ClearSelect(); 
+		clearSelect(); 
 	
 	}
 
@@ -42,9 +47,9 @@ public:
 		m_currentState = state;
 		switch (state)
 		{
-		ST_VERTEX:break;
-		ST_COMPONECT:break;
-		ST_SELECTALL:break;
+			case ST_VERTEX:break;
+			case ST_COMPONECT:break;
+			case ST_SELECTALL:break;
 		}
 
 	
@@ -61,31 +66,14 @@ public:
 		m_currentPoint.x = x;
 		m_currentPoint.y = y;
 		
+		switch (m_currentState)
+		{
+			case ST_VERTEX:break;
+			case ST_COMPONECT: componentLButtonUpState(); break;
+			case ST_SELECTALL:break;
+		}
 
-		Point2f p; int idx;
-		p = pixel2Coor(m_currentPoint);
-		const double eps = 5.0/m_AspX;
-		idx = m_mask->fiendClosestPoint(p, eps);
-		if (idx < 0)
-		return;
-
-		//if (b_point_select[idx]) //is mark
-		//{
-		//	if (i_point_select[0] == idx) //is the one
-		//	{
-		//		//alert is closet point 
-		//		return;
-		//	}
-		//	else //not action
-		//	{
-		//		return;
-		//	}
-		//	
-		//}
 		
-
-		b_point_select[idx] = true;
-		i_point_select.push_back(idx);
 
 			
 	}
@@ -94,7 +82,7 @@ public:
 	virtual void Prepare();
 	virtual void Draw();
 
-	void ClearSelect(){
+	void clearSelect(){
 
 		//clear 
 		int n = m_mask->m_points.size();
@@ -102,10 +90,13 @@ public:
 
 		for (size_t i = 0; i < n; i++)
 		b_point_select[i] = false;
+
 		i_point_select.clear();
 
 
 	}
+
+
 
 
 
@@ -135,6 +126,53 @@ public:
 
 private:
 
+	//draw state
+	void vertexDrawState() {
+	
+	
+	}
+
+	void componentDrawState()
+	{
+		
+		drawComponent();
+		drawConexion();
+		
+	}
+	void simetricDrawState() {
+	
+	
+	
+	}
+
+
+	//event state
+	void componentLButtonUpState()
+	{
+		Point2f p; int idx;
+		p = pixel2Coor(m_currentPoint);
+		const double eps = 5.0 / m_AspX;
+		idx = m_mask->fiendClosestPoint(p, eps);
+		if (idx < 0)
+			return;
+
+		if (b_point_select[idx]) //is mark
+		{
+			if (i_point_select[0] != idx) //is not the one
+				return;
+
+		}
+
+		b_point_select[idx] = true;
+		i_point_select.push_back(idx);
+	
+	}
+
+
+
+
+
+
 
 	inline Point2f coor2Pixel(const Point2f &pt) 
 	{ 		 
@@ -155,10 +193,6 @@ private:
 
 	}
 
-
-
-
-	inline float normL1(const cv::Point2f &p1, const cv::Point2f &p2){ return (p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y); }
 	
 
 	void drawPoint(const cv::Point2f &p);
@@ -178,7 +212,89 @@ private:
 
 
 	void drawAllPoint();
+	void drawConexion() {
+	
+		vector<Point2f> *pPoint;
+		pPoint = m_mask->getPoints();
+		Point2f pt, ptant;
+		int n, m;
+		int icp, iap;		
 
+		//Draw conection points 	
+		n = i_point_select.size();
+		glLineWidth(1.0);
+		
+
+		for (size_t i = 1; i < n; i++)
+		{
+			iap = i_point_select[i - 1];
+			icp = i_point_select[i];
+
+			pt = (*pPoint)[iap]; ptant = (*pPoint)[icp];
+			pt = coor2Pixel(pt);
+			ptant = coor2Pixel(ptant);
+
+
+			glColor3f(1.0, 1.0, 1.0);
+			drawLine(pt, ptant);
+
+			glColor3f(1.0, 1.0, 0.0);
+			glPointSize(5.0);
+			drawPoint(pt);
+			drawPoint(ptant);
+
+
+		}
+	
+	
+	}
+
+
+	void drawComponent() {
+	
+		vector<Point2f> *pPoint;
+		pPoint = m_mask->getPoints();
+		Point2f pt, ptant;
+		int n, m;
+		int icp, iap;
+		int selectComponent;
+
+
+		//Draw component	
+		CWireComponet wireCom;
+		n = m_mask->m_components.size();
+		selectComponent = m_mask->m_idx_componet;
+		for (int i = 0; i < n; i++)
+		{
+
+			glLineWidth((selectComponent == i) ? 5.0 : 2.0);
+			glPointSize(5.0);
+
+			wireCom = m_mask->m_components[i];
+			m = wireCom.inx_points.size();
+			for (int j = 1; j < m; j++)
+			{
+				iap = wireCom.inx_points[j - 1];
+				icp = wireCom.inx_points[j];
+
+				pt = (*pPoint)[iap]; ptant = (*pPoint)[icp];
+				pt = coor2Pixel(pt);
+				ptant = coor2Pixel(ptant);
+
+				glColor3f(0.7, 0.0, 0.7);
+				drawLine(pt, ptant);
+
+				glColor3f(1.0, 0.0, 1.0);
+				drawPoint(pt);
+				drawPoint(ptant);
+
+			}
+
+		}
+
+
+	
+	}
 
 
 

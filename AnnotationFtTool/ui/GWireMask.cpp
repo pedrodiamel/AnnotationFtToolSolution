@@ -58,86 +58,20 @@ void CGWireMask::Draw()
 {
 	if (!m_mask)return;
 
-	//Obtener puntos 
-	vector<Point2f> *pPoint;
-	pPoint = m_mask->getPoints();
-	Point2f pt, ptant;
-	int n, m;
-	int icp, iap;
-	int selectComponent;
 
+	drawAllPoint();
 
-
-	//Draw all points and mark the select points 
-	n = pPoint->size();
-	for(size_t i = 0; i < n; i++)
+	
+	switch ((int)m_currentState)
 	{
-		pt = (*pPoint)[i];
-		pt = coor2Pixel(pt);
-		
-		glColor3f(1.0, (float)b_point_select[i], 0.0);
-		glPointSize((!b_point_select[i]) ? 3.0 : 5.0 );
-		drawPoint(pt);		
+		case ST_VERTEX: break;
+		case ST_COMPONECT: componentDrawState();
+		break;
+		case ST_SELECTALL:break;
 	}
 
-
-	//Draw component
 	
-	CWireComponet wireCom;
-	n = m_mask->m_components.size();	
-	selectComponent = m_mask->m_idx_componet;
-	for (int i = 0; i < n; i++)
-	{
-
-		glLineWidth(  (selectComponent==i)? 5.0 : 2.0  );
-		wireCom = m_mask->m_components[i];
-		m = wireCom.inx_points.size();
-		for (int j = 1; j < m; j++)
-		{
-			iap = wireCom.inx_points[j - 1];
-			icp = wireCom.inx_points[j];
-
-			pt = (*pPoint)[iap]; ptant = (*pPoint)[icp];
-			pt = coor2Pixel(pt);
-			ptant = coor2Pixel(ptant);			
-			
-			glColor3f(0.8, 0.0, 0.8);
-			drawLine(pt, ptant);
-			
-			glColor3f(1.0, 0.0, 1.0);
-			drawPoint(pt); 
-			drawPoint(ptant);
-
-		}
-
-	}
-
-
-
-
-
-	//Draw conection points 
 	
-	n = i_point_select.size();		
-	glLineWidth(1.0);
-	glColor3f(1.0, 1.0, 1.0);
-
-	for (size_t i = 1; i < n; i++)
-	{
-		iap = i_point_select[i-1];
-		icp = i_point_select[i];
-
-		pt = (*pPoint)[iap]; ptant = (*pPoint)[icp];
-		pt = coor2Pixel(pt);
-		ptant = coor2Pixel(ptant);
-		
-		drawLine(pt, ptant);
-
-	}
-	
-
-
-
 
 }
 
@@ -157,14 +91,26 @@ void CGWireMask::drawPoint(const cv::Point2f & p)
 void CGWireMask::drawAllPoint()
 {
 
+	//Obtener puntos 
 	vector<Point2f> *pPoint;
 	pPoint = m_mask->getPoints();
+	Point2f pt;
+	int n;
 
-	int length = pPoint->size();
-	for (size_t i = 0; i < length; i++)
+	//Draw all points and mark the select points 
+	glColor3f(1.0, 0, 0.0);
+	glPointSize(3.0);
+
+	n = pPoint->size();
+	for (size_t i = 0; i < n; i++)
 	{
-		Point2f pt = (*pPoint)[i];
+		pt = (*pPoint)[i];
 		pt = coor2Pixel(pt);
+
+		//draw point and resalt the select
+		//glColor3f(1.0, (float)b_point_select[i], 0.0);
+		//glPointSize((!b_point_select[i]) ? 3.0 : 5.0);		
+		
 		drawPoint(pt);
 	}
 

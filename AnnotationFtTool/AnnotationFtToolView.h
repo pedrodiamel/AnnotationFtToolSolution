@@ -60,6 +60,8 @@ public:
 	afx_msg void OnToolsVertex();
 	afx_msg void OnUpdateToolsVertex(CCmdUI *pCmdUI);
 	afx_msg void OnToolsReplicateall();
+	afx_msg void OnToolsDeselect();
+	afx_msg void OnToolsDelete();
 };
 
 #ifndef _DEBUG  // debug version in AnnotationFtToolView.cpp

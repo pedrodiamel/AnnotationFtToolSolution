@@ -16,6 +16,7 @@ public:
 	string name;	
 	vector<int> inx_points;
 	std::vector<Vec2i> conection;
+	vector<int> inx_symmetry;
 
 public:
 
@@ -27,6 +28,7 @@ public:
 		name = comp.name;
 		inx_points = comp.inx_points;
 		conection = comp.conection;	
+		inx_symmetry = comp.inx_symmetry;
 	}
 
 	CWireComponet operator=(const CWireComponet& comp)
@@ -36,6 +38,7 @@ public:
 			name = comp.name;
 			inx_points = comp.inx_points;
 			conection = comp.conection;
+			inx_symmetry = comp.inx_symmetry;
 
 		}
 		return *this;

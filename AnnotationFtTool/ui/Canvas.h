@@ -44,9 +44,10 @@ public:
 		CGWireMask::MASKUISTATES st = (CGWireMask::MASKUISTATES)state;
 		m_gMask.changeCurrentState(st);
 
-
 	}
 	
+
+	void clearSelect() { m_gMask.clearSelect(); }
 
 
 

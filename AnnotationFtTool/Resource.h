@@ -81,13 +81,22 @@
 #define ID_TOOLS_COMPONENT              32785
 #define ID_TOOLS_DELETE32786            32786
 #define ID_TOOLS_REPLICATEALL32787      32787
+#define ID_VIEW_RESTART                 32788
+#define ID_TOOLS_ACTIONCOMPONENT        32789
+#define ID_REPLICATE_REPLICATE          32790
+#define ID_TOOLS_REPLICATE              32791
+#define ID_TOOLS_SELECTALL32792         32792
+#define ID_TOOLS_ACTIONVERTIX           32793
+#define ID_TOOLS_ACTIONVERTEX           32794
+#define ID_TOOLS_DESELECT               32795
+#define ID_TOOLS_DESELECT32796          32796
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
-#define _APS_NEXT_COMMAND_VALUE         32788
+#define _APS_NEXT_COMMAND_VALUE         32797
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

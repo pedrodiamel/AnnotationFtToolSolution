@@ -231,7 +231,7 @@ BOOL COpenGlWnd::Create(
 	BOOL  bCreate =	CWnd::CreateEx(
 			0,
 			NULL,NULL, 
-			WS_CHILD /*WS_OVERLAPPEDWINDOW*/ | WS_VISIBLE | 
+			WS_CHILD /*WS_OVERLAPPEDWINDOW*/ /*| WS_VISIBLE*/ | 
 			WS_CLIPCHILDREN | WS_CLIPSIBLINGS,
 			wndsize, 
 			parent,

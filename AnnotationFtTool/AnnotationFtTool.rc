@@ -137,15 +137,20 @@ BEGIN
     BEGIN
         MENUITEM "E&xit",                       ID_APP_EXIT
     END
+    POPUP "View"
+    BEGIN
+        MENUITEM "Restart",                     ID_TOOLS_RESTART
+    END
     POPUP "Tools"
     BEGIN
+        MENUITEM "Deselect",                    ID_TOOLS_DESELECT
+        MENUITEM SEPARATOR
         MENUITEM "Select All",                  ID_TOOLS_SELECTALL
         MENUITEM "Vertex",                      ID_TOOLS_VERTEX, CHECKED
         MENUITEM "Component",                   ID_TOOLS_COMPONET
         MENUITEM SEPARATOR
-        MENUITEM "Restart",                     ID_TOOLS_RESTART
-        MENUITEM "Add",                         ID_TOOLS_ADD
-        MENUITEM "Delete",                      ID_TOOLS_DELETE
+        MENUITEM "Add Component",               ID_TOOLS_ADD
+        MENUITEM "Delete Component",            ID_TOOLS_DELETE
         MENUITEM "Replicate",                   ID_TOOLS_REPLICATEALL
     END
     POPUP "&Dataset"
@@ -162,13 +167,19 @@ IDR_POPUP_EDIT MENU
 BEGIN
     POPUP "Tools"
     BEGIN
-        MENUITEM "Restart",                     ID_TOOLS_RESTART
+        MENUITEM "Deselect",                    ID_TOOLS_DESELECT
+        MENUITEM SEPARATOR
+        MENUITEM "Select All",                  ID_TOOLS_SELECTALL
         MENUITEM "Vertex",                      ID_TOOLS_VERTEX, CHECKED
         MENUITEM "Component",                   ID_TOOLS_COMPONET
         MENUITEM SEPARATOR
-        MENUITEM "Add",                         ID_TOOLS_ADD
-        MENUITEM "Delete",                      ID_TOOLS_DELETE
-        MENUITEM "Replicate",                   ID_TOOLS_REPLICATEALL
+        POPUP "Component"
+        BEGIN
+            MENUITEM "Add",                         ID_TOOLS_ADD
+            MENUITEM "Delete",                      ID_TOOLS_DELETE
+            MENUITEM "Replicate",                   ID_TOOLS_REPLICATEALL
+        END
+        MENUITEM " Vertex",                     ID_TOOLS_ACTIONVERTEX
     END
 END
 
@@ -187,15 +198,7 @@ IDR_POPUP_EXPLORER MENU
 BEGIN
     POPUP "Explorer"
     BEGIN
-        MENUITEM "&Open",                       ID_OPEN
-        MENUITEM "Open &With....",              ID_OPEN_WITH
-        MENUITEM SEPARATOR
-        MENUITEM "&Compile",                    ID_DUMMY_COMPILE
-        MENUITEM SEPARATOR
-        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
-        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
-        MENUITEM "&Remove",                     ID_EDIT_CLEAR
-        MENUITEM SEPARATOR
+        MENUITEM "&Delete",                     ID_TOOLS_DELETE
         MENUITEM "&Properties...",              ID_PROPERTIES
     END
 END
