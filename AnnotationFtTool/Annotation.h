@@ -44,15 +44,15 @@ public:
 
 	void updateCurrentComponent(const vector<int> &indxs)
 	{
+
 		int n; Vec2i v;
 		CWireComponet wireCom;
 		wireCom = *pCurrentWireMask->getCurrentComponent();
 		wireCom.inx_points = indxs;
 		wireCom.conection.clear();
-		//wireCom.inx_symmetry.clear();
 
 				
-		n = indxs.size();
+		n = (int)indxs.size();
 		if (n > 0)
 		{
 			//create conexion ...
@@ -62,10 +62,6 @@ public:
 				v = Vec2i(indxs[i - 1], indxs[i]);
 				wireCom.conection.push_back(v);
 			}
-
-			////create symetric default ...
-			//wireCom.inx_symmetry = wireCom.inx_points;
-			//std::reverse(wireCom.inx_symmetry.begin(), wireCom.inx_symmetry.end());
 		
 		}
 			
@@ -84,7 +80,7 @@ public:
 		 int idx = pCurrentWireMask->m_idx_componet;
 
 		 //for all wire mask
-		 int n = list_wireMask.size();
+		 int n = (int)list_wireMask.size();
 		 for (int i = 0; i < n; i++)
 		 {
 			 if (i == current_iter)
@@ -102,6 +98,42 @@ public:
 	}
 
 
+
+	void updateSymmetric(const vector<int> &symm)
+	{
+
+		int n; Vec2i v;
+		CWireComponet wireCom;
+		pCurrentWireMask->m_symmetry = symm;
+
+		//update
+		*list_wireMask[current_iter] = *pCurrentWireMask;
+
+	}
+
+
+	void replicateSymmetric()
+	{
+
+		//get current component
+		vector<int> symm = pCurrentWireMask->m_symmetry;
+
+		//for all wire mask
+		int n = (int)list_wireMask.size();
+		for (int i = 0; i < n; i++)
+		{
+			if (i == current_iter)
+				continue;
+
+			// update
+			CWireMask* pMask = list_wireMask[i];
+			pMask->m_symmetry = symm;
+
+		}
+
+		*pCurrentWireMask = *list_wireMask[current_iter];
+
+	}
 
 
 public:

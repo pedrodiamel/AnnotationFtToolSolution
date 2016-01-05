@@ -19,6 +19,7 @@ public:
 	enum _MASKUISTATES 
 	{	ST_VERTEX = 0, 
 		ST_COMPONECT, 
+		ST_SYMMETRIC,
 		ST_SELECTALL 
 	}MASKUISTATES;
 	MASKUISTATES m_currentState;
@@ -37,20 +38,26 @@ public:
 	void SetWireMask(CWireMask *mask) { 
 		
 		m_mask = mask; 	
-		clearSelect(); 
+		clearSelect();		
 	
 	}
 
 
 	void changeCurrentState(MASKUISTATES state) {
 	
+
+		if (!m_mask)return;
+
 		m_currentState = state;
 		switch (state)
 		{
 			case ST_VERTEX:break;
 			case ST_COMPONECT:break;
+			case ST_SYMMETRIC:	break;
 			case ST_SELECTALL:break;
 		}
+
+		clearSelect();	
 
 	
 	}
@@ -70,6 +77,7 @@ public:
 		{
 			case ST_VERTEX:break;
 			case ST_COMPONECT: componentLButtonUpState(); break;
+			case ST_SYMMETRIC: symmetricLButtonUpState(); break;
 			case ST_SELECTALL:break;
 		}
 
@@ -87,11 +95,16 @@ public:
 		//clear 
 		int n = m_mask->m_points.size();
 		b_point_select.resize(n);
+		i_symmetry.resize(n);
 
 		for (size_t i = 0; i < n; i++)
-		b_point_select[i] = false;
-
+		{
+			b_point_select[i] = false;
+			i_symmetry[i] = i;
+		}		
+		
 		i_point_select.clear();
+		m_currentIdx = -1;
 
 
 	}
@@ -105,6 +118,9 @@ private:
 
 	CWireMask *m_mask;
 	cv::Point2f m_currentPoint; //current point 
+	int m_currentIdx;
+
+
 
 	float m_scalaXY;
 	float m_scalaX; //scala en x
@@ -121,7 +137,7 @@ public:
 
 	vector<bool> b_point_select;
 	vector<int>  i_point_select;
-	
+	vector<int>  i_symmetry;
 
 
 private:
@@ -139,9 +155,12 @@ private:
 		drawConexion();
 		
 	}
-	void simetricDrawState() {
+
+	void symmetricDrawState() {
 	
-	
+		drawSymmetricOld();
+		drawSymmetric();
+
 	
 	}
 
@@ -149,6 +168,7 @@ private:
 	//event state
 	void componentLButtonUpState()
 	{
+
 		Point2f p; int idx;
 		p = pixel2Coor(m_currentPoint);
 		const double eps = 5.0 / m_AspX;
@@ -169,6 +189,25 @@ private:
 	}
 
 
+	void symmetricLButtonUpState()
+	{
+				
+		Point2f p; int idx;
+		p = pixel2Coor(m_currentPoint);
+		const double eps = 5.0 / m_AspX;
+		idx = m_mask->fiendClosestPoint(p, eps);
+		
+		if (idx >= 0) {
+			if (m_currentIdx < 0)
+			m_currentIdx = idx;
+			else {
+				i_symmetry[m_currentIdx] = idx;
+				i_symmetry[idx] = m_currentIdx;
+				m_currentIdx = -1;				
+			}
+		}
+	}
+	
 
 
 
@@ -294,6 +333,81 @@ private:
 
 
 	
+	}
+
+	void drawSymmetric()
+	{
+
+		vector<Point2f> *pPoint;
+		pPoint = m_mask->getPoints();
+		Point2f pt, ptant;	
+
+				
+		glPointSize(5.0);
+		glColor3f(0.0, 0.0, 1.0);
+		for (int i = 0; i < (int)i_symmetry.size(); i++)
+		{
+
+			int j = i_symmetry[i];
+			if (j != i) {
+
+
+				pt = (*pPoint)[i]; ptant = (*pPoint)[j];
+				pt = coor2Pixel(pt);
+				ptant = coor2Pixel(ptant);
+												
+				drawPoint(pt);
+				drawPoint(ptant);
+
+				
+			}
+		}
+
+		glColor3f(0.0, 1.0, 1.0);
+		if (m_currentIdx >= 0)
+		{
+			
+			pt = (*pPoint)[m_currentIdx];
+			pt = coor2Pixel(pt);
+			drawPoint(pt);
+
+		}
+			
+	
+	
+	}
+
+	void drawSymmetricOld()
+	{
+
+		vector<Point2f> *pPoint;
+		pPoint = m_mask->getPoints();
+		Point2f pt, ptant;
+
+		vector<int> symmetry = m_mask->m_symmetry;
+
+		glPointSize(6.0);
+		glColor3f(0.0, 0.5, 0.5);
+		for (int i = 0; i < (int)symmetry.size(); i++)
+		{
+
+			int j = symmetry[i];
+			if (j != i) {
+
+
+				pt = (*pPoint)[i]; ptant = (*pPoint)[j];
+				pt = coor2Pixel(pt);
+				ptant = coor2Pixel(ptant);
+
+				drawPoint(pt);
+				drawPoint(ptant);
+
+
+			}
+		}
+
+
+
 	}
 
 

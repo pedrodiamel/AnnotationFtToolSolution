@@ -43,6 +43,11 @@ BEGIN_MESSAGE_MAP(CAnnotationFtToolView, CView)
 	ON_COMMAND(ID_TOOLS_REPLICATEALL, &CAnnotationFtToolView::OnToolsReplicateall)
 	ON_COMMAND(ID_TOOLS_DESELECT, &CAnnotationFtToolView::OnToolsDeselect)
 	ON_COMMAND(ID_TOOLS_DELETE, &CAnnotationFtToolView::OnToolsDelete)
+	ON_COMMAND(ID_TOOLS_SYMMETRIC, &CAnnotationFtToolView::OnToolsSymmetric)
+	ON_UPDATE_COMMAND_UI(ID_TOOLS_SYMMETRIC, &CAnnotationFtToolView::OnUpdateToolsSymmetric)
+	ON_COMMAND(ID_TOOLS_ADDSYMMETRIC, &CAnnotationFtToolView::OnToolsAddsymmetric)
+	ON_COMMAND(ID_TOOLS_DELETESYMMETRIC, &CAnnotationFtToolView::OnToolsDeletesymmetric)
+	ON_COMMAND(ID_TOOLS_REPLICATESYMETRIC, &CAnnotationFtToolView::OnToolsReplicatesymetric)
 END_MESSAGE_MAP()
 
 // CAnnotationFtToolView construction/destruction
@@ -268,5 +273,65 @@ void CAnnotationFtToolView::OnToolsDelete()
 	ann->updateCurrentComponent(nullpoints);
 
 	m_wndCanvas.InvalidateRect(NULL, FALSE);
+
+}
+
+
+void CAnnotationFtToolView::OnToolsSymmetric()
+{
+	// TODO: Add your command handler code here
+	m_toolState = TOOLSTATES::ST_SYMMETRIC;
+	m_wndCanvas.changeCurrentToolState((int)m_toolState);
+}
+
+
+void CAnnotationFtToolView::OnUpdateToolsSymmetric(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	pCmdUI->SetCheck(m_toolState == TOOLSTATES::ST_SYMMETRIC);
+}
+
+
+void CAnnotationFtToolView::OnToolsAddsymmetric()
+{
+	// TODO: Add your command handler code here
+	CAnnotationFtToolDoc *pDoc;
+	CAnnotation *ann;
+	pDoc = GetDocument();
+	ann = pDoc->GetAnnotation();
+
+	ann->updateSymmetric((*m_wndCanvas.getSymmetricPoints()));
+
+	m_wndCanvas.InvalidateRect(NULL, FALSE);
+
+
+}
+
+
+void CAnnotationFtToolView::OnToolsDeletesymmetric()
+{
+	// TODO: Add your command handler code here
+	CAnnotationFtToolDoc *pDoc;
+	CAnnotation *ann;
+	pDoc = GetDocument();
+	ann = pDoc->GetAnnotation();
+
+	vector<int> nullpoints; nullpoints.clear();
+	ann->updateSymmetric(nullpoints);
+
+	m_wndCanvas.InvalidateRect(NULL, FALSE);
+
+
+}
+
+
+void CAnnotationFtToolView::OnToolsReplicatesymetric()
+{
+	// TODO: Add your command handler code here
+	CAnnotationFtToolDoc *pDoc;
+	CAnnotation *ann;
+	pDoc = GetDocument();
+	ann = pDoc->GetAnnotation();
+	ann->replicateSymmetric();
 
 }

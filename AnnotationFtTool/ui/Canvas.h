@@ -37,7 +37,7 @@ public:
 	void Restart();
 	void setMask(CWireMask *mask);
 	vector<int> *getSelectPoints() { return &m_gMask.i_point_select;  }
-
+	vector<int> *getSymmetricPoints() { return &m_gMask.i_symmetry; }
 
 	void changeCurrentToolState(int state) {
 		

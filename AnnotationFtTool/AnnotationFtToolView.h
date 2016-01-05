@@ -17,7 +17,7 @@ public:
 	CCanvas	 m_wndCanvas;
 	BOOL	 m_bCreateCanva;
 
-	enum TOOLSTATES { ST_VERTEX = 0, ST_COMPONECT, ST_SELECTALL };
+	enum TOOLSTATES { ST_VERTEX = 0, ST_COMPONECT, ST_SYMMETRIC,ST_SELECTALL };
 	TOOLSTATES m_toolState;
 	
 
@@ -62,6 +62,11 @@ public:
 	afx_msg void OnToolsReplicateall();
 	afx_msg void OnToolsDeselect();
 	afx_msg void OnToolsDelete();
+	afx_msg void OnToolsSymmetric();
+	afx_msg void OnUpdateToolsSymmetric(CCmdUI *pCmdUI);
+	afx_msg void OnToolsAddsymmetric();
+	afx_msg void OnToolsDeletesymmetric();
+	afx_msg void OnToolsReplicatesymetric();
 };
 
 #ifndef _DEBUG  // debug version in AnnotationFtToolView.cpp

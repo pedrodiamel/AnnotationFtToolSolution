@@ -12,6 +12,7 @@ CGWireMask::CGWireMask()
 	, m_AspX(1)
 	, m_AspY(1)
 	, m_currentState(ST_VERTEX)
+	, m_currentIdx(-1)
 	
 
 {
@@ -65,8 +66,8 @@ void CGWireMask::Draw()
 	switch ((int)m_currentState)
 	{
 		case ST_VERTEX: break;
-		case ST_COMPONECT: componentDrawState();
-		break;
+		case ST_COMPONECT: componentDrawState(); break;
+		case ST_SYMMETRIC: symmetricDrawState(); break;
 		case ST_SELECTALL:break;
 	}
 

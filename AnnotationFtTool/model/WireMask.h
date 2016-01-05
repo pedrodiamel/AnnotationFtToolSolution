@@ -16,7 +16,7 @@ public:
 	string name;	
 	vector<int> inx_points;
 	std::vector<Vec2i> conection;
-	vector<int> inx_symmetry;
+	
 
 public:
 
@@ -28,7 +28,6 @@ public:
 		name = comp.name;
 		inx_points = comp.inx_points;
 		conection = comp.conection;	
-		inx_symmetry = comp.inx_symmetry;
 	}
 
 	CWireComponet operator=(const CWireComponet& comp)
@@ -38,7 +37,6 @@ public:
 			name = comp.name;
 			inx_points = comp.inx_points;
 			conection = comp.conection;
-			inx_symmetry = comp.inx_symmetry;
 
 		}
 		return *this;
@@ -89,6 +87,7 @@ public:
 		m_points = mask.m_points;
 		m_components = mask.m_components;
 		m_idx_componet = mask.m_idx_componet;
+		m_symmetry = mask.m_symmetry;
 	}
 
 	~CWireMask();
@@ -102,6 +101,7 @@ public:
 			m_points = mask.m_points;
 			m_components = mask.m_components;
 			m_idx_componet = mask.m_idx_componet;
+			m_symmetry = mask.m_symmetry;
 
 		}
 		return *this;
@@ -139,6 +139,7 @@ public:
 
 	CImageProxy m_image; //imagen
 	vector<Point2f> m_points; //points
+	vector<int> m_symmetry;
 	vector<CWireComponet> m_components; //vector of components
 	int m_idx_componet;
 	

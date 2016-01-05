@@ -47,15 +47,13 @@ void CCanvas::DoFrame(float timeDelta)
 	// clear graphics then render from the vbo
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-
 	m_gImage.Draw(); //draw imge
 	m_gMask.Draw();
 
 
-
-	//draw text
-	DrawText(30, 30, "Scrol X:%d, Y:%d", m_posScrollX, m_posScrollY);
-	DrawText(30, 50, "Zoom Z:%f", m_scroll);
+	////draw text
+	//DrawText(30, 30, "Scrol X:%d, Y:%d", m_posScrollX, m_posScrollY);
+	//DrawText(30, 50, "Zoom Z:%f", m_scroll);
 	
 	
 

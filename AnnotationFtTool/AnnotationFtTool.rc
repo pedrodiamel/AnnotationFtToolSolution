@@ -148,10 +148,15 @@ BEGIN
         MENUITEM "Select All",                  ID_TOOLS_SELECTALL
         MENUITEM "Vertex",                      ID_TOOLS_VERTEX, CHECKED
         MENUITEM "Component",                   ID_TOOLS_COMPONET
+        MENUITEM "Symmetric",                   ID_TOOLS_SYMMETRIC
         MENUITEM SEPARATOR
         MENUITEM "Add Component",               ID_TOOLS_ADD
         MENUITEM "Delete Component",            ID_TOOLS_DELETE
-        MENUITEM "Replicate",                   ID_TOOLS_REPLICATEALL
+        MENUITEM "Replicate Componet",          ID_TOOLS_REPLICATEALL
+        MENUITEM SEPARATOR
+        MENUITEM "Add Symmetric",               ID_TOOLS_ADDSYMMETRIC
+        MENUITEM "Delete Symmetric",            ID_TOOLS_DELETESYMMETRIC
+        MENUITEM "Replicate Symetric",          ID_TOOLS_REPLICATESYMETRIC
     END
     POPUP "&Dataset"
     BEGIN
@@ -172,14 +177,21 @@ BEGIN
         MENUITEM "Select All",                  ID_TOOLS_SELECTALL
         MENUITEM "Vertex",                      ID_TOOLS_VERTEX, CHECKED
         MENUITEM "Component",                   ID_TOOLS_COMPONET
+        MENUITEM "Symmetric",                   ID_TOOLS_SYMMETRIC
         MENUITEM SEPARATOR
+        MENUITEM " Vertex",                     ID_TOOLS_ACTIONVERTEX
         POPUP "Component"
         BEGIN
             MENUITEM "Add",                         ID_TOOLS_ADD
             MENUITEM "Delete",                      ID_TOOLS_DELETE
             MENUITEM "Replicate",                   ID_TOOLS_REPLICATEALL
         END
-        MENUITEM " Vertex",                     ID_TOOLS_ACTIONVERTEX
+        POPUP "Symmetric"
+        BEGIN
+            MENUITEM "Add",                         ID_TOOLS_ADDSYMMETRIC
+            MENUITEM "Delect",                      ID_TOOLS_DELETESYMMETRIC
+            MENUITEM "Replicate",                   ID_TOOLS_REPLICATESYMETRIC
+        END
     END
 END
 

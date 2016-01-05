@@ -90,13 +90,22 @@
 #define ID_TOOLS_ACTIONVERTEX           32794
 #define ID_TOOLS_DESELECT               32795
 #define ID_TOOLS_DESELECT32796          32796
+#define ID_TOOLS_SYMMETRIC              32797
+#define ID_TOOLS_SYMMETRIC32798         32798
+#define ID_TOOLS_ADDSYMMETRIC           32799
+#define ID_TOOLS_DELETESYMMETRIC        32800
+#define ID_TOOLS_REPLICATESYMETRIC      32801
+#define ID_TOOLS_SYMMETRIC32802         32802
+#define ID_SYMMETRIC_ADD                32803
+#define ID_SYMMETRIC_DELECT             32804
+#define ID_SYMMETRIC_REPLICATE          32805
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
-#define _APS_NEXT_COMMAND_VALUE         32797
+#define _APS_NEXT_COMMAND_VALUE         32806
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
