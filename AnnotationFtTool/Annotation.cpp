@@ -5,8 +5,6 @@
 CAnnotation::CAnnotation()
 	: current_iter(0)
 	, num_component(0)
-	, current_comp_name("")
-	, current_comp(0)
 	, pCurrentWireMask(NULL)
 {
 }

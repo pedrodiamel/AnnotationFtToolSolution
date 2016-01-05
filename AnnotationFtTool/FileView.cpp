@@ -30,7 +30,7 @@ void CFileView::UpdateTreeView(CAnnotation * ann)
 
 
 	HTREEITEM hRoot = m_wndFileView.InsertItem(CString(ann->db_name.c_str()), 0, 0);
-	m_wndFileView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
+	//m_wndFileView.SetItemState(hRoot, TVIS_BOLD, TVIS_BOLD);
 	
 	vector<CWireMask*> *pVect = &(ann->list_wireMask);
 	
@@ -53,8 +53,9 @@ void CFileView::UpdateTreeView(CAnnotation * ann)
 		{
 			
 			CWireComponet com = (*jter);
-			hItem = m_wndFileView.InsertItem(CString(com.name.c_str()), 2, 2, hSrc);
-			m_wndFileView.SetItemData(hItem, (DWORD)(i * n + j));
+			hItem = m_wndFileView.InsertItem(CString(com.name.c_str()), 2, 1, hSrc);
+			m_wndFileView.SetItemData(hItem, (DWORD)(i * n + j) + 1);
+
 		}
 
 
@@ -272,7 +273,7 @@ void CFileView::OnChangeVisualStyle()
 
 	m_FileViewImages.DeleteImageList();
 
-	UINT uiBmpId = theApp.m_bHiColorIcons ? IDB_FILE_VIEW_24 : IDB_FILE_VIEW;
+	UINT uiBmpId = theApp.m_bHiColorIcons ? IDB_FILEVIEW_ED_24 : IDB_FILE_VIEW;
 
 	CBitmap bmp;
 	if (!bmp.LoadBitmap(uiBmpId))

@@ -17,6 +17,10 @@ public:
 	CCanvas	 m_wndCanvas;
 	BOOL	 m_bCreateCanva;
 
+	enum TOOLSTATES { ST_VERTEX = 0, ST_COMPONECT, ST_SELECTALL };
+	TOOLSTATES m_toolState;
+	
+
 
 // Operations
 public:
@@ -50,6 +54,12 @@ public:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnDatasetMuct();
 	afx_msg void OnToolsRestart();
+	afx_msg void OnToolsAdd();
+	afx_msg void OnToolsComponet();
+	afx_msg void OnUpdateToolsComponet(CCmdUI *pCmdUI);
+	afx_msg void OnToolsVertex();
+	afx_msg void OnUpdateToolsVertex(CCmdUI *pCmdUI);
+	afx_msg void OnToolsReplicateall();
 };
 
 #ifndef _DEBUG  // debug version in AnnotationFtToolView.cpp

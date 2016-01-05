@@ -258,5 +258,8 @@
     <Image Include="res\Toolbar256.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\fileview_ed.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

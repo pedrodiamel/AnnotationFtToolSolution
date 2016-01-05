@@ -9,8 +9,10 @@ CGWireMask::CGWireMask()
 	, m_scalaXY(0)
 	, m_dx(0)
 	, m_dy(0)
-	, AspX(1)
-	, AspY(1)
+	, m_AspX(1)
+	, m_AspY(1)
+	, m_currentState(ST_VERTEX)
+	
 
 {
 
@@ -21,6 +23,31 @@ CGWireMask::CGWireMask()
 
 CGWireMask::~CGWireMask()
 {
+}
+
+void CGWireMask::Zoom(int zoom)
+{
+
+	m_scalaXY += zoom;
+	m_scalaX = m_scalaY = m_scalaXY;
+
+	float w = Width(); float h = Height();
+	w = w - m_scalaXY*((float)w / h);
+	h = h - m_scalaXY;
+
+	m_AspX = (w / Width());
+	m_AspY = (h / Height());
+
+}
+
+void CGWireMask::Restart() {
+
+	m_dx = 0; m_dy = 0;
+	m_scalaXY = 0;
+	m_scalaX = m_scalaY = m_scalaXY;
+	m_AspX = 1;
+	m_AspY = 1;
+
 }
 
 void CGWireMask::Prepare()
@@ -34,39 +61,80 @@ void CGWireMask::Draw()
 	//Obtener puntos 
 	vector<Point2f> *pPoint;
 	pPoint = m_mask->getPoints();
-	
-	
+	Point2f pt, ptant;
+	int n, m;
+	int icp, iap;
+	int selectComponent;
 
-	//Draw all points
-	int n = pPoint->size();
+
+
+	//Draw all points and mark the select points 
+	n = pPoint->size();
 	for(size_t i = 0; i < n; i++)
 	{
-		Point2f pt = (*pPoint)[i];
+		pt = (*pPoint)[i];
+		pt = coor2Pixel(pt);
+		
+		glColor3f(1.0, (float)b_point_select[i], 0.0);
+		glPointSize((!b_point_select[i]) ? 3.0 : 5.0 );
+		drawPoint(pt);		
+	}
 
-		//scalar 
-		pt.x = pt.x*AspX + m_dx;
-		pt.y = pt.y*AspY + m_dy;
 
-		//draw
-		if(!point_select[i])
+	//Draw component
+	
+	CWireComponet wireCom;
+	n = m_mask->m_components.size();	
+	selectComponent = m_mask->m_idx_componet;
+	for (int i = 0; i < n; i++)
+	{
+
+		glLineWidth(  (selectComponent==i)? 5.0 : 2.0  );
+		wireCom = m_mask->m_components[i];
+		m = wireCom.inx_points.size();
+		for (int j = 1; j < m; j++)
 		{
-			glColor3f(1.0, 0.0, 0.0);
-			glPointSize(3.0);		
-		
-		}
-		else {
-		
-			glColor3f(1.0, 1.0, 0.0);
-			glPointSize(5.0);
-		
-		}
+			iap = wireCom.inx_points[j - 1];
+			icp = wireCom.inx_points[j];
 
-		drawPoint(pt);
+			pt = (*pPoint)[iap]; ptant = (*pPoint)[icp];
+			pt = coor2Pixel(pt);
+			ptant = coor2Pixel(ptant);			
+			
+			glColor3f(0.8, 0.0, 0.8);
+			drawLine(pt, ptant);
+			
+			glColor3f(1.0, 0.0, 1.0);
+			drawPoint(pt); 
+			drawPoint(ptant);
+
+		}
 
 	}
 
 
 
+
+
+	//Draw conection points 
+	
+	n = i_point_select.size();		
+	glLineWidth(1.0);
+	glColor3f(1.0, 1.0, 1.0);
+
+	for (size_t i = 1; i < n; i++)
+	{
+		iap = i_point_select[i-1];
+		icp = i_point_select[i];
+
+		pt = (*pPoint)[iap]; ptant = (*pPoint)[icp];
+		pt = coor2Pixel(pt);
+		ptant = coor2Pixel(ptant);
+		
+		drawLine(pt, ptant);
+
+	}
+	
 
 
 
@@ -84,32 +152,19 @@ void CGWireMask::drawPoint(const cv::Point2f & p)
 
 }
 
+
+
 void CGWireMask::drawAllPoint()
 {
 
 	vector<Point2f> *pPoint;
 	pPoint = m_mask->getPoints();
 
-
-	float w = Width(); float h = Height();
-	float aspX = (float)w / h;
-	float aspY = (float)h / w;
-
-	w = w - m_scalaXY*aspX;
-	h = h - m_scalaXY;
-
-	float AspX = (w / Width());
-	float AspY = (h / Height());
-
-
 	int length = pPoint->size();
 	for (size_t i = 0; i < length; i++)
 	{
 		Point2f pt = (*pPoint)[i];
-
-		pt.x = pt.x*AspX + m_dx;
-		pt.y = pt.y*AspY + m_dy;
-
+		pt = coor2Pixel(pt);
 		drawPoint(pt);
 	}
 

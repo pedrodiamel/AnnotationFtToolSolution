@@ -58,6 +58,7 @@ IDR_MENU_IMAGES         BITMAP                  "res\\menuimages.bmp"
 IDB_MENU_IMAGES_24      BITMAP                  "res\\menuimages_hc.bmp"
 IDR_PROPERTIES          BITMAP                  "res\\properties.bmp"
 IDB_PROPERTIES_HC       BITMAP                  "res\\properties_hc.bmp"
+IDB_FILEVIEW_ED_24      BITMAP                  "res\\fileview_ed.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -138,7 +139,14 @@ BEGIN
     END
     POPUP "Tools"
     BEGIN
+        MENUITEM "Select All",                  ID_TOOLS_SELECTALL
+        MENUITEM "Vertex",                      ID_TOOLS_VERTEX, CHECKED
+        MENUITEM "Component",                   ID_TOOLS_COMPONET
+        MENUITEM SEPARATOR
         MENUITEM "Restart",                     ID_TOOLS_RESTART
+        MENUITEM "Add",                         ID_TOOLS_ADD
+        MENUITEM "Delete",                      ID_TOOLS_DELETE
+        MENUITEM "Replicate",                   ID_TOOLS_REPLICATEALL
     END
     POPUP "&Dataset"
     BEGIN
@@ -155,6 +163,12 @@ BEGIN
     POPUP "Tools"
     BEGIN
         MENUITEM "Restart",                     ID_TOOLS_RESTART
+        MENUITEM "Vertex",                      ID_TOOLS_VERTEX, CHECKED
+        MENUITEM "Component",                   ID_TOOLS_COMPONET
+        MENUITEM SEPARATOR
+        MENUITEM "Add",                         ID_TOOLS_ADD
+        MENUITEM "Delete",                      ID_TOOLS_DELETE
+        MENUITEM "Replicate",                   ID_TOOLS_REPLICATEALL
     END
 END
 

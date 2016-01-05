@@ -15,6 +15,7 @@
 #include "AnnotationFtToolView.h"
 #include "MainFrm.h"
 
+
 #include "command\LoadMuctCommand.h"
 
 
@@ -34,12 +35,19 @@ BEGIN_MESSAGE_MAP(CAnnotationFtToolView, CView)
 	ON_WM_SIZE()
 	ON_COMMAND(ID_DATASET_MUCT, &CAnnotationFtToolView::OnDatasetMuct)
 	ON_COMMAND(ID_TOOLS_RESTART, &CAnnotationFtToolView::OnToolsRestart)
+	ON_COMMAND(ID_TOOLS_ADD, &CAnnotationFtToolView::OnToolsAdd)
+	ON_COMMAND(ID_TOOLS_COMPONET, &CAnnotationFtToolView::OnToolsComponet)
+	ON_UPDATE_COMMAND_UI(ID_TOOLS_COMPONET, &CAnnotationFtToolView::OnUpdateToolsComponet)
+	ON_COMMAND(ID_TOOLS_VERTEX, &CAnnotationFtToolView::OnToolsVertex)
+	ON_UPDATE_COMMAND_UI(ID_TOOLS_VERTEX, &CAnnotationFtToolView::OnUpdateToolsVertex)
+	ON_COMMAND(ID_TOOLS_REPLICATEALL, &CAnnotationFtToolView::OnToolsReplicateall)
 END_MESSAGE_MAP()
 
 // CAnnotationFtToolView construction/destruction
 
 CAnnotationFtToolView::CAnnotationFtToolView()
 	:m_bCreateCanva(FALSE)
+	, m_toolState( TOOLSTATES::ST_VERTEX )
 {
 	// TODO: add construction code here
 
@@ -170,4 +178,64 @@ void CAnnotationFtToolView::OnToolsRestart()
 {
 	// TODO: Add your command handler code here
 	m_wndCanvas.Restart();
+}
+
+
+void CAnnotationFtToolView::OnToolsAdd()
+{
+	// TODO: Add your command handler code here
+	CAnnotationFtToolDoc *pDoc;	
+	CAnnotation *ann;
+
+	pDoc = GetDocument();
+	ann = pDoc->GetAnnotation();
+	ann->updateCurrentComponent( (*m_wndCanvas.getSelectPoints()) );
+	
+
+}
+
+
+void CAnnotationFtToolView::OnToolsComponet()
+{
+	// TODO: Add your command handler code here
+	m_toolState = TOOLSTATES::ST_COMPONECT;
+	m_wndCanvas.changeCurrentToolState((int)m_toolState);
+
+}
+
+
+void CAnnotationFtToolView::OnUpdateToolsComponet(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here	
+	pCmdUI->SetCheck(m_toolState == TOOLSTATES::ST_COMPONECT);
+
+}
+
+
+void CAnnotationFtToolView::OnToolsVertex()
+{
+	// TODO: Add your command handler code here
+	m_toolState = TOOLSTATES::ST_VERTEX;
+}
+
+
+void CAnnotationFtToolView::OnUpdateToolsVertex(CCmdUI *pCmdUI)
+{
+	// TODO: Add your command update UI handler code here
+	pCmdUI->SetCheck(m_toolState == TOOLSTATES::ST_VERTEX);
+}
+
+
+void CAnnotationFtToolView::OnToolsReplicateall()
+{
+	// TODO: Add your command handler code here
+	CAnnotationFtToolDoc *pDoc;
+	CAnnotation *ann;
+
+	pDoc = GetDocument();
+	ann = pDoc->GetAnnotation();
+	ann->replicateCurrentComponent(); 
+
+
+
 }

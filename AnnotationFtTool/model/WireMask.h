@@ -14,7 +14,7 @@ class CWireComponet {
 public:
 		
 	string name;	
-	vector<unsigned int> inx_points;
+	vector<int> inx_points;
 	std::vector<Vec2i> conection;
 
 public:
@@ -74,6 +74,8 @@ class CWireMask
 public:
 
 
+
+
 	CWireMask(const CImageProxy &image);
 	CWireMask(const CImageProxy &image, const vector<Point2f> &points);
 	CWireMask(const string &pathName, const int flag = 2);
@@ -83,6 +85,7 @@ public:
 	{
 		m_points = mask.m_points;
 		m_components = mask.m_components;
+		m_idx_componet = mask.m_idx_componet;
 	}
 
 	~CWireMask();
@@ -95,6 +98,7 @@ public:
 			m_image = mask.m_image;
 			m_points = mask.m_points;
 			m_components = mask.m_components;
+			m_idx_componet = mask.m_idx_componet;
 
 		}
 		return *this;
@@ -103,6 +107,9 @@ public:
 
 	vector<Point2f>* getPoints() { return &m_points; }
 	CImageProxy getImage() { return m_image; }
+	void changeCurrentComponent(int idxCom) { check(idxCom);  m_idx_componet = idxCom; }
+	CWireComponet* getCurrentComponent() { return &m_components[m_idx_componet]; }
+
 
 
 	int fiendClosestPoint(const Point2f p, const double eps = 10) {
@@ -121,22 +128,22 @@ public:
 	}
 
 
+	
 
-
-
-
-
-
+	
 public:
 
 
 	CImageProxy m_image; //imagen
 	vector<Point2f> m_points; //points
 	vector<CWireComponet> m_components; //vector of components
+	int m_idx_componet;
+	
+	
+private:
 
-	
-	
-	
+	void check(int i) { if (i < 0 && i < m_components.size())throw "range over"; }
+
 
 };
 

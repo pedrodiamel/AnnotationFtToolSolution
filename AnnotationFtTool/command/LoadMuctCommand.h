@@ -100,9 +100,7 @@ public:
 
 			}			
 			
-			(*ann).addWireMask( wireMask );			 
-			
-
+			(*ann).addWireMask( wireMask );		
 			TRACE(">>%s, %s\n", db.getName().c_str(), db.getIndex().c_str());
 
 		}

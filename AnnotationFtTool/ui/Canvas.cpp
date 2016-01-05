@@ -104,6 +104,55 @@ inline void CCanvas::Size(UINT nType, int cx, int cy)
 	SetScrollRange(SB_VERT, 0, cy);
 }
 
+void CCanvas::UpdateScrollX(int posX) {
+
+	m_posScrollX = posX;
+	m_gImage.Move(-m_posScrollX, -m_posScrollY);
+	m_gMask.Move(-m_posScrollX, -m_posScrollY);
+
+	SetScrollPos(SB_HORZ, posX);
+
+}
+
+void CCanvas::UpdateScrollY(int posY) {
+
+	m_posScrollY = posY;
+	m_gImage.Move(-m_posScrollX, -m_posScrollY);
+	m_gMask.Move(-m_posScrollX, -m_posScrollY);
+
+	SetScrollPos(SB_VERT, posY);
+
+}
+
+void CCanvas::Restart()
+{
+
+	UpdateScrollX(0);
+	UpdateScrollY(0);
+	m_gImage.Restart();
+	m_gMask.Restart();
+
+	InvalidateRect(NULL, FALSE);
+}
+
+void CCanvas::setMask(CWireMask * mask) {
+
+	assert(mask);
+
+	m_img = *(Mat*)(mask->getImage());
+	m_gImage.SetImage(&m_img); //conect to img
+	m_gImage.SetPos(0, 0);
+	m_gImage.SetSize(m_img.cols, m_img.rows);
+
+	m_gMask.SetWireMask(mask);
+	m_gMask.SetPos(0, 0);
+	m_gMask.SetSize(m_img.cols, m_img.rows);
+	
+
+	InvalidateRect(NULL, FALSE);
+
+}
+
 
 
 BEGIN_MESSAGE_MAP(CCanvas, COpenGlWnd)

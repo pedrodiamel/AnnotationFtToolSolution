@@ -49,16 +49,20 @@ void CViewTree::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 	// TODO: Add your control notification handler code here
 	
 	int iImagen = 0, iImagenSel = 0;
-	HTREEITEM hItem = pNMTreeView->itemNew.hItem;
-	int i = 0, j = 0;
+	HTREEITEM hItemNew = pNMTreeView->itemNew.hItem;
+	HTREEITEM hItemOld = pNMTreeView->itemOld.hItem;
+		
 	
-	CString str = GetItemText(hItem);	
-	DWORD_PTR data = GetItemData(hItem);
-	GetItemImage(hItem, iImagen, iImagenSel);
+	CString str = GetItemText(hItemNew);
+	DWORD_PTR data = GetItemData(hItemNew);
+	GetItemImage(hItemNew, iImagen, iImagenSel);
+	
+	if (!data)return;
+
 
 	
 	//Update
-	((CMainFrame*)GetParentFrame())->onSelectItemTreeView(str, data);
+	((CMainFrame*)GetParentFrame())->onSelectItemTreeView(str, (data-1));
 
 
 	*pResult = 0;
