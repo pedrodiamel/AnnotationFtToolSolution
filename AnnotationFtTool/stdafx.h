@@ -65,7 +65,6 @@ using namespace boost::filesystem;
 #include <opencv2/imgproc/imgproc.hpp>
 
 
-
 //GUTL HEADER
 #include "../GUtlLib/Error.h"
 #include "../GUtlLib/Type.h"
@@ -73,6 +72,14 @@ using namespace boost::filesystem;
 #include "../GUtlLib/Monitor.h"
 #include "../GUtlLib/Thread.h"
 #include "../GUtlLib/Vector.h"
+
+
+//FT HEADER
+#include "../FtLib/ft.hpp"
+#include "../FtLib/ft_data.hpp"
+
+
+
 
 
 //LOCAL HEADER

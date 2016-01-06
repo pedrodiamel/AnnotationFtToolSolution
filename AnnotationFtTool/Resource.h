@@ -99,13 +99,14 @@
 #define ID_SYMMETRIC_ADD                32803
 #define ID_SYMMETRIC_DELECT             32804
 #define ID_SYMMETRIC_REPLICATE          32805
+#define ID_FILE_EXPORTAR                32806
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
-#define _APS_NEXT_COMMAND_VALUE         32806
+#define _APS_NEXT_COMMAND_VALUE         32807
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

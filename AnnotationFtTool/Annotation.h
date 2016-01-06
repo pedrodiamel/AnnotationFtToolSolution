@@ -136,6 +136,118 @@ public:
 	}
 
 
+	void exportFt( const string &pathName) {
+	
+		vector<int> symmetry;                    //indices of symmetric points
+		vector<Vec2i> connections;               //indices of connected points 
+		vector<string> imnames;                  //images
+		vector<vector<Point2f> > points;         //points
+		CWireMask* mask;
+
+		ft_data ft;
+
+		int n = (int)list_wireMask.size();
+		if (n == 0)return;
+
+
+		points.resize(n);
+		imnames.resize(n);
+		//connections.resize(n);
+
+		for (int i = 0; i < n; i++)
+		{
+			mask = list_wireMask[i];
+			points[i] = mask->m_points;
+			imnames[i] = mask->m_image.getPathName();
+			
+			
+		}
+	
+		mask = list_wireMask[0];
+		symmetry = mask->m_symmetry;
+
+		
+		CWireComponet *com;
+		Vec2i v;
+
+		n = mask->m_components.size();
+		for (int i = 0; i < n; i++)
+		{			
+			com = &mask->m_components[i];
+			int m = (int)com->inx_points.size();
+			for (int j = 1; j < m; j++)
+			{
+				v = Vec2i(com->inx_points[j - 1], com->inx_points[j]);
+				connections.push_back(v);
+			}			
+
+		}
+
+		ft.points = points;
+		ft.symmetry = symmetry;
+		ft.imnames = imnames;
+		ft.connections = connections;
+
+		save_ft(pathName.c_str(), ft);
+
+	
+	}
+
+
+	void removeWireMask(const int idx) {
+		
+		int maskN = (int)list_wireMask.size();
+		if ((idx < 0) || (idx >= maskN))return;
+		list_wireMask.erase(list_wireMask.begin() + idx);	
+	
+	}
+
+	void removeIncompleteWireMask() {
+	
+		
+		
+		int maskN = (int)list_wireMask.size();		
+		int ptN;
+
+		ptN = list_wireMask[0]->m_points.size();
+		for (int i = 1; i < maskN; i++) ptN = max(ptN, (int)list_wireMask[i]->m_points.size());
+		for (int i = 1; i < (int)list_wireMask.size(); i++)
+		{
+			
+			//check the point size
+			if ((int)list_wireMask[i]->m_points.size() != ptN)
+			{ 
+				list_wireMask.erase(list_wireMask.begin() + i);
+				i--;
+			}
+			//test of coordenate
+			else {			
+				
+				vector<Point2f> *pPoint;
+				int j = 0;
+				pPoint = &list_wireMask[i]->m_points;
+				int n = (int)pPoint->size();
+
+				for (; j < n ; j++)
+				if ((*pPoint)[j].x <= 0 || (*pPoint)[j].y <= 0)
+				break;
+
+				if(j!=n)
+				{
+					list_wireMask.erase(list_wireMask.begin() + i);
+					i--;
+				}
+			}
+
+			
+
+		}
+			
+	}
+
+
+
+
 public:
 
 	string db_name; //name 

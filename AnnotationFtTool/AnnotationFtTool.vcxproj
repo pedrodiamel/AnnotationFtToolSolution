@@ -278,6 +278,9 @@
     <Image Include="UserImages.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FtLib\FtLib.vcxproj">
+      <Project>{05979ade-7e3b-49bb-a21c-b00a529f9cfe}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\GUtlLib\GUtlLib.vcxproj">
       <Project>{40fd6524-f115-4de4-909f-43abef272f34}</Project>
     </ProjectReference>

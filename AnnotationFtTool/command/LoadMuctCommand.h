@@ -38,10 +38,11 @@ public:
 
 		TRACE("CLoadMuctCommand():Ejecutar \n");
 
-		const int num_component = 7;
+		const int num_component = 8;
 		string NAME_COMPONENT[num_component] =
 		{
 			"mouth",
+			"mouth inter",
 			"left eye",
 			"right eye",
 			"nose",
@@ -54,7 +55,7 @@ public:
 		//Get annotation tool class
 		CAnnotation *ann = _pDoc->GetAnnotation();
 		ann->db_name = "muct-db";
-		ann->num_component = 7;
+		ann->num_component = num_component;
 
 		//Path configurate 
 		string pathNameOut = "out/";
@@ -72,8 +73,7 @@ public:
 		
 		string str;
 		//while (!file.eof()) {
-		int i = 1;
-		while (i++<20 && !file.eof()) {
+		int i = 1;while (i++<100 && !file.eof()) {
 
 			//file >> str;
 			getline(file, str);
@@ -105,10 +105,9 @@ public:
 
 		}
 
-
-		
+			
 		file.close();
-		
+		(*ann).removeIncompleteWireMask();
 
 
 

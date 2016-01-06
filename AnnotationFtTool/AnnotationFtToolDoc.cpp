@@ -22,6 +22,7 @@
 IMPLEMENT_DYNCREATE(CAnnotationFtToolDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CAnnotationFtToolDoc, CDocument)
+	ON_COMMAND(ID_FILE_EXPORTAR, &CAnnotationFtToolDoc::OnFileExportar)
 END_MESSAGE_MAP()
 
 
@@ -58,6 +59,7 @@ void CAnnotationFtToolDoc::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		// TODO: add storing code here
+		
 	}
 	else
 	{
@@ -135,3 +137,14 @@ void CAnnotationFtToolDoc::Dump(CDumpContext& dc) const
 
 
 // CAnnotationFtToolDoc commands
+
+
+void CAnnotationFtToolDoc::OnFileExportar()
+{
+	// TODO: Add your command handler code here
+	
+
+	m_annotation.exportFt("annotations.yaml");
+
+
+}

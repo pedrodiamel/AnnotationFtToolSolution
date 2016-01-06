@@ -136,6 +136,7 @@ BEGIN
     POPUP "&File"
     BEGIN
         MENUITEM "E&xit",                       ID_APP_EXIT
+        MENUITEM "Exportar",                    ID_FILE_EXPORTAR
     END
     POPUP "View"
     BEGIN

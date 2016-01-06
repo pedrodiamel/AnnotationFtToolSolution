@@ -38,7 +38,7 @@ public:
 
 	~CImageProxy();
 	operator Mat*(){ return getImagen(); }
-
+	string getPathName()const {  return m_path; }
 
 private:
 	
